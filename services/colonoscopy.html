@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colonoscopy – Gastro SCOPE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="logo-icon">
+        <div class="logo-text">
+          <span class="logo-name">Gastro <strong>SCOPE</strong></span>
+          <span class="logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link active">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="gastroscopy.html">Gastroscopy</a></li>
+              <li><a href="colonoscopy.html">Colonoscopy</a></li>
+              <li><a href="bowel-cancer-screening.html">Bowel Cancer Screening</a></li>
+              <li><a href="open-access-endoscopy.html">Open access endoscopy</a></li>
+              <li><a href="consultation-services.html">Consultation services</a></li>
+              <li class="has-submenu">
+                <a href="#">Advanced Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="ercp.html">ERCP</a></li>
+                  <li><a href="eus.html">EUS</a></li>
+                  <li><a href="emr.html">EMR/Removal of Polyps</a></li>
+                </ul>
+              </li>
+              <li class="has-submenu">
+                <a href="#">Bariatric Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="gastric-balloon.html">Gastric Balloon</a></li>
+                  <li><a href="gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Obesity Management <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="gastric-balloon.html">Gastric Balloon</a></li>
+              <li><a href="gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+            </ul>
+          </li>
+          <li><a href="../obesity-insights/index.html" class="nav-link">&ldquo;Obesity Insights&rdquo;</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">For Patients <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../for-patients/symptoms.html">Symptoms</a></li>
+              <li><a href="../for-patients/appointment.html">Appointment</a></li>
+              <li><a href="../for-patients/practice-locations.html">Practice Locations</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">For Doctor <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../for-doctor/referral-letter.html">Create Referral Letter</a></li>
+              <li><a href="../for-doctor/endoscopy-report.html">Create Endoscopy Report</a></li>
+              <li><a href="../for-doctor/prescription.html">Create Prescription</a></li>
+            </ul>
+          </li>
+          <li class="nav-search">
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="service-hero">
+    <img src="https://bizimages.withfloats.com/actual/61ac589cd8172c0001c7ef6c.jpg" alt="Colonoscopy procedure">
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="service-toc">
+    <div class="container">
+      <a href="#what">What is colonoscopy?</a>
+      <a href="#why">Why is colonoscopy done?</a>
+      <a href="#prepare">How do I prepare for colonoscopy?</a>
+      <a href="#performed">How is colonoscopy performed?</a>
+      <a href="#after">What happens after colonoscopy?</a>
+      <a href="#risks">Are there any risks or side-effects?</a>
+    </div>
+  </section>
+
+  <!-- What is colonoscopy? -->
+  <section class="service-content" id="what">
+    <div class="container">
+      <h2 class="content-heading">What is colonoscopy?</h2>
+      <p>A colonoscopy is an examination of the lining of the large bowel (colon) using a flexible tube with a camera (colonoscope). The colonoscope is inserted through the rectum and gently advanced through the entire colon. It allows the doctor to inspect the bowel lining for any abnormalities, take tissue samples (biopsies) and remove polyps.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Why is colonoscopy done? -->
+  <section class="service-content" id="why">
+    <div class="container">
+      <h2 class="content-heading">Why is colonoscopy done?</h2>
+      <p>Colonoscopy is usually performed to evaluate symptoms of</p>
+      <ul class="content-list">
+        <li>Change in bowel habits</li>
+        <li>Rectal bleeding</li>
+        <li>Abdominal pain</li>
+        <li>Unexplained weight loss</li>
+        <li>Iron deficiency anaemia</li>
+        <li>Chronic diarrhoea</li>
+      </ul>
+      <p>It is also used for</p>
+      <ul class="content-list">
+        <li>Bowel cancer screening</li>
+        <li>Surveillance after previous polyp removal</li>
+        <li>Inflammatory bowel disease monitoring</li>
+        <li>Investigation of abnormal imaging results</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- How do I prepare for colonoscopy? -->
+  <section class="service-content" id="prepare">
+    <div class="container">
+      <h2 class="content-heading">How do I prepare for colonoscopy?</h2>
+      <p>Good bowel preparation is essential for a safe and accurate examination. You will be given a bowel preparation kit with specific instructions. <span class="underline-text">It is very important that you follow the preparation instructions carefully. Poor bowel preparation may result in the procedure being cancelled or important lesions being missed.</span></p>
+      <p>You may need to stop certain medications beforehand. Please inform your doctor if you are taking blood thinners, diabetes medications, or iron supplements.</p>
+      <p>You should follow a low-fibre diet for 3 days before the procedure and a clear fluid diet on the day before.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- How is colonoscopy performed? -->
+  <section class="service-content" id="performed">
+    <div class="container">
+      <h2 class="content-heading">How is colonoscopy performed?</h2>
+      <p>A light anaesthetic (twilight sedation) is used. You will be lying on your left side. The colonoscope is gently inserted through the rectum and advanced through the colon. Air or carbon dioxide is used to inflate the bowel for better visualisation.</p>
+      <p>The procedure usually takes 20 to 45 minutes. The doctor will carefully examine the lining of the entire colon. If polyps are found, they can usually be removed during the same procedure using specialised instruments passed through the colonoscope.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- What happens after colonoscopy? -->
+  <section class="service-content" id="after">
+    <div class="container">
+      <h2 class="content-heading">What happens after colonoscopy?</h2>
+      <p>You will be monitored in the recovery area until the effects of sedation have worn off. You may experience some bloating or mild cramping due to the air used during the procedure, which usually passes quickly.</p>
+      <p><span class="underline-text">Because of the sedation given it is very important that you do not drive a car, travel on public transport alone, operate machinery, sign legal documents or drink alcohol on the same day after the test. It is strongly advised that a friend or relative take you home and stay with you.</span></p>
+      <p>Your doctor will discuss the initial results with you before you leave. Biopsy results typically take a few days.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Are there any risks or side-effects? -->
+  <section class="service-content" id="risks">
+    <div class="container">
+      <h2 class="content-heading">Are there any risks or side-effects?</h2>
+      <p>Although complications can occur, they are rare when the procedure is performed by doctors who are specially trained in colonoscopy. Possible complications include</p>
+      <ul class="content-list">
+        <li>Bleeding (especially after polyp removal)</li>
+        <li>Perforation (a tear in the bowel wall &ndash; very rare)</li>
+        <li>Adverse reaction to sedation</li>
+        <li>Incomplete procedure due to poor preparation</li>
+      </ul>
+      <p><span class="underline-text">If you have any of the following symptoms in the hours or days after the colonoscopy</span></p>
+      <ul class="content-list">
+        <li><span class="underline-text">Fever</span></li>
+        <li><span class="underline-text">Increasing abdominal pain</span></li>
+        <li><span class="underline-text">Rectal bleeding that is more than expected</span></li>
+        <li><span class="underline-text">Other symptoms that cause you concern</span></li>
+      </ul>
+      <p>Please contact your doctor or present to the nearest emergency department immediately.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="footer-logo-icon">
+        <div class="footer-logo-text">
+          <span class="footer-logo-name">Gastro <strong>SCOPE</strong></span>
+          <span class="footer-logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">Home</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms and condition</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

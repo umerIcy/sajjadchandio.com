@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Endoscopy Report – Chandio Gastro &amp; Endoscopy Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* ===== Endoscopy Report Page Styles ===== */
+
+    .er-page-wrap { background:#eaeaea; padding:30px 0 60px; }
+
+    /* -- Form Panel -- */
+    .er-form-section { max-width:820px; margin:0 auto; padding:0 20px; }
+    .er-form-section h1 { font-family:'Playfair Display',Georgia,serif; color:#0e7c86; font-size:28px; margin-bottom:8px; }
+    .er-form-section .er-subtitle { font-size:14px; color:#666; margin-bottom:28px; }
+
+    .er-fieldset { border:1px solid #d0d0d0; border-radius:4px; padding:22px 20px 14px; margin-bottom:20px; background:#fff; }
+    .er-fieldset legend { font-family:'Playfair Display',Georgia,serif; font-size:17px; color:#0e7c86; font-weight:700; padding:0 8px; }
+
+    .er-row { display:flex; gap:16px; margin-bottom:14px; }
+    .er-row:last-child { margin-bottom:0; }
+    .er-field { flex:1; display:flex; flex-direction:column; }
+    .er-field.full { flex:0 0 100%; }
+    .er-field label { font-size:12.5px; font-weight:600; color:#333; margin-bottom:4px; }
+    .er-field label .req { color:#c0392b; }
+
+    .er-field input, .er-field textarea, .er-field select {
+      width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:3px;
+      font-size:13.5px; font-family:'Open Sans',Arial,sans-serif; color:#333;
+    }
+    .er-field input:focus, .er-field textarea:focus, .er-field select:focus {
+      border-color:#0e7c86; outline:none; box-shadow:0 0 0 2px rgba(14,124,134,0.12);
+    }
+    .er-field select { appearance:auto; }
+
+    .er-radio-group { display:flex; gap:16px; align-items:center; padding:6px 0; }
+    .er-radio-group label { font-weight:400; font-size:13px; display:flex; align-items:center; gap:4px; cursor:pointer; }
+    .er-radio-group input[type="radio"], .er-radio-group input[type="checkbox"] { margin:0; }
+
+    .er-conditional { display:none; padding-left:8px; border-left:3px solid #0e7c86; margin-top:8px; }
+    .er-conditional.visible { display:block; }
+
+    /* Image upload */
+    .er-img-upload-area { border:2px dashed #ccc; border-radius:6px; padding:20px; text-align:center; cursor:pointer; transition:border-color 0.2s; background:#fafafa; }
+    .er-img-upload-area:hover { border-color:#0e7c86; }
+    .er-img-upload-area p { font-size:13px; color:#888; margin:0; }
+    .er-img-upload-area input[type="file"] { display:none; }
+    .er-img-thumbs { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+    .er-img-thumb { position:relative; width:100px; height:80px; border-radius:4px; overflow:hidden; border:1px solid #ddd; }
+    .er-img-thumb img { width:100%; height:100%; object-fit:cover; }
+    .er-img-thumb .remove-img { position:absolute; top:2px; right:2px; width:20px; height:20px; background:rgba(0,0,0,0.6); color:#fff; border:none; border-radius:50%; font-size:12px; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1; }
+
+    /* Buttons */
+    .er-actions { display:flex; gap:12px; margin-top:24px; }
+    .er-btn { display:inline-flex; align-items:center; gap:6px; padding:11px 28px; font-size:14px; font-family:'Open Sans',sans-serif; border:none; border-radius:3px; cursor:pointer; transition:background 0.2s; }
+    .er-btn-primary { background:#0e7c86; color:#fff; }
+    .er-btn-primary:hover { background:#095a62; }
+    .er-btn-secondary { background:#fff; color:#666; border:1px solid #ccc; }
+    .er-btn-secondary:hover { background:#f5f5f5; border-color:#999; }
+
+    /* -- Preview Overlay -- */
+    .er-preview-overlay { display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.55); overflow-y:auto; padding:30px 20px; }
+    .er-preview-overlay.visible { display:flex; justify-content:center; align-items:flex-start; }
+    .er-preview-wrapper { position:relative; width:100%; max-width:820px; }
+    .er-preview-toolbar { display:flex; justify-content:flex-end; gap:10px; margin-bottom:12px; }
+    .er-toolbar-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 20px; font-size:13px; font-family:'Open Sans',sans-serif; border:none; border-radius:3px; cursor:pointer; transition:background 0.2s; }
+    .er-toolbar-btn.print-btn { background:#0e7c86; color:#fff; }
+    .er-toolbar-btn.print-btn:hover { background:#095a62; }
+    .er-toolbar-btn.close-btn { background:#fff; color:#444; border:1px solid #ccc; }
+    .er-toolbar-btn.close-btn:hover { background:#f0f0f0; }
+
+    /* ===== THE REPORT TEMPLATE ===== */
+    .er-report { width:100%; background:#fff; box-shadow:0 2px 20px rgba(0,0,0,0.18); font-family:'Open Sans',Arial,Helvetica,sans-serif; font-size:11px; color:#222; line-height:1.5; }
+
+    .er-report-header { border-top:4px solid #3a9cc0; border-bottom:2px solid #3a9cc0; padding:14px 30px; display:flex; justify-content:space-between; align-items:center; }
+    .er-report-header-left { display:flex; align-items:center; gap:10px; }
+    .er-report-header-left img { height:36px; width:auto; border-radius:50%; }
+    .er-report-header-left .er-hdr-text { font-size:9px; color:#555; line-height:1.35; }
+    .er-report-header-left .er-hdr-name { font-family:'Playfair Display',Georgia,serif; font-size:13px; color:#0e7c86; font-weight:700; }
+    .er-report-header-right { text-align:right; font-family:'Playfair Display',Georgia,serif; font-size:16px; color:#3a9cc0; line-height:1.3; }
+
+    .er-report-body { padding:20px 30px 24px; }
+
+    .er-report-title { text-align:center; font-size:16px; font-weight:700; margin-bottom:18px; letter-spacing:0.5px; }
+
+    .er-section-heading { font-family:'Playfair Display',Georgia,serif; font-size:13px; color:#3a9cc0; margin:18px 0 10px; font-weight:400; font-style:italic; }
+    .er-section-heading:first-of-type { margin-top:0; }
+
+    .er-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px 30px; margin-bottom:6px; }
+    .er-info-line { font-size:10.5px; line-height:1.7; }
+    .er-info-line strong { font-weight:700; }
+    .er-info-line-full { grid-column:1/-1; }
+
+    .er-checkbox-line { font-size:10.5px; margin:4px 0; }
+    .er-checkbox-line .box { display:inline-block; width:11px; height:11px; border:1px solid #555; margin:0 3px; vertical-align:middle; text-align:center; font-size:9px; line-height:11px; }
+    .er-checkbox-line .box.checked::after { content:"✓"; }
+    .er-indent { padding-left:18px; }
+
+    .er-finding-title { font-size:11px; font-weight:700; margin:10px 0 2px; }
+    .er-finding-sub { font-size:10.5px; line-height:1.65; margin-bottom:2px; }
+    .er-finding-sub u { text-decoration:underline; }
+
+    .er-images-row { display:flex; flex-wrap:wrap; gap:10px; margin:12px 0; }
+    .er-images-row img { max-width:200px; max-height:160px; border:1px solid #ccc; border-radius:3px; object-fit:contain; }
+    .er-images-row .er-img-caption { font-size:9px; color:#666; text-align:center; margin-top:2px; }
+
+    .er-report-footer { border-top:2px solid #3a9cc0; padding:8px 30px; text-align:center; font-size:9px; color:#666; }
+
+    /* ===== PRINT ===== */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    @media print {
+      html, body { margin:0; padding:0; width:210mm; height:297mm; }
+      body * { visibility:hidden; }
+      .er-preview-overlay, .er-preview-overlay * { visibility:visible; }
+      .er-preview-overlay { display:flex!important; position:static; background:none; padding:0; margin:0; width:100%; height:100%; }
+      .er-preview-toolbar { display:none!important; }
+      .er-preview-wrapper { max-width:100%; width:100%; height:100%; margin:0; }
+      .er-report { box-shadow:none; width:100%; min-height:100vh; height:100vh; display:flex; flex-direction:column; }
+      .er-report-body { flex:1; }
+      .er-report-header { -webkit-print-color-adjust:exact; print-color-adjust:exact; border-top-color:#3a9cc0!important; border-bottom-color:#3a9cc0!important; }
+      .er-report-footer { -webkit-print-color-adjust:exact; print-color-adjust:exact; border-top-color:#3a9cc0!important; }
+      .site-header, .site-footer, .er-form-section, .er-page-wrap { display:none!important; }
+      .er-images-row img { max-width:180px; max-height:140px; }
+    }
+
+    @media (max-width:600px) {
+      .er-row { flex-direction:column; gap:10px; }
+      .er-report-header { flex-direction:column; gap:8px; text-align:center; }
+      .er-report-header-right { text-align:center; }
+      .er-info-grid { grid-template-columns:1fr; }
+      .er-preview-overlay { padding:10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="logo-icon">
+        <div class="logo-text">
+          <span class="logo-name">Chandio Gastro & Endoscopy Center</span>
+          <span class="logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../services/gastroscopy.html">Gastroscopy</a></li>
+              <li><a href="../services/colonoscopy.html">Colonoscopy</a></li>
+              <li><a href="../services/bowel-cancer-screening.html">Bowel Cancer Screening</a></li>
+              <li><a href="../services/open-access-endoscopy.html">Open access endoscopy</a></li>
+              <li><a href="../services/consultation-services.html">Consultation services</a></li>
+              <li class="has-submenu">
+                <a href="#">Advanced Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="../services/ercp.html">ERCP</a></li>
+                  <li><a href="../services/eus.html">EUS</a></li>
+                  <li><a href="../services/emr.html">EMR/Removal of Polyps</a></li>
+                </ul>
+              </li>
+              <li class="has-submenu">
+                <a href="#">Bariatric Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="../services/gastric-balloon.html">Gastric Balloon</a></li>
+                  <li><a href="../services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Obesity Management <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../services/gastric-balloon.html">Gastric Balloon</a></li>
+              <li><a href="../services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+            </ul>
+          </li>
+          <li><a href="../obesity-insights/index.html" class="nav-link">&ldquo;Obesity Insights&rdquo;</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">For Patients <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../for-patients/symptoms.html">Symptoms</a></li>
+              <li><a href="../for-patients/appointment.html">Appointment</a></li>
+              <li><a href="../for-patients/practice-locations.html">Practice Locations</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link active">For Doctor <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="referral-letter.html">Create Referral Letter</a></li>
+              <li><a href="endoscopy-report.html">Create Endoscopy Report</a></li>
+              <li><a href="prescription.html">Create Prescription</a></li>
+            </ul>
+          </li>
+          <li class="nav-search">
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== FORM INPUT ==================== -->
+  <div class="er-page-wrap">
+    <div class="er-form-section">
+      <h1>Create Endoscopy Report</h1>
+      <p class="er-subtitle">Fill in the procedure details below, upload any endoscopy images, then click <strong>Preview Report</strong>.</p>
+
+      <form id="erForm" autocomplete="off">
+
+        <!-- Preprocedure -->
+        <fieldset class="er-fieldset">
+          <legend>Preprocedure Information</legend>
+          <div class="er-row">
+            <div class="er-field">
+              <label for="fExamDate">Date of the Exam <span class="req">*</span></label>
+              <input type="date" id="fExamDate" required>
+            </div>
+            <div class="er-field">
+              <label for="fHospital">Hospital / Facility</label>
+              <select id="fHospital">
+                <option value="">Select</option>
+                <option value="Al-Suffah Hospital, Rawalpindi">Al-Suffah Hospital, Rawalpindi</option>
+                <option value="Rawalpindi International Hospital">Rawalpindi International Hospital</option>
+                <option value="Jinnah Hospital, Gujar Khan">Jinnah Hospital, Gujar Khan</option>
+              </select>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field" style="flex:2">
+              <label for="fPatientName">Patient Name <span class="req">*</span></label>
+              <input type="text" id="fPatientName" required placeholder="e.g. Irfan Naseem">
+            </div>
+            <div class="er-field">
+              <label for="fDOB">Date of Birth <span class="req">*</span></label>
+              <input type="date" id="fDOB" required>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fIndication">Indication <span class="req">*</span></label>
+              <textarea id="fIndication" rows="2" required placeholder="e.g. Dyspepsia, upper abdominal pain, melaena"></textarea>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field">
+              <label>Use of Antithrombotic Drugs</label>
+              <div class="er-radio-group">
+                <label><input type="radio" name="fAntiThrom" value="no" checked> No</label>
+                <label><input type="radio" name="fAntiThrom" value="yes"> Yes</label>
+              </div>
+              <div class="er-conditional" id="antiThromDetails">
+                <div class="er-row" style="margin-bottom:8px">
+                  <div class="er-field full">
+                    <label for="fAntiWhich">Which drug?</label>
+                    <input type="text" id="fAntiWhich" placeholder="e.g. Aspirin, Warfarin">
+                  </div>
+                </div>
+                <div class="er-radio-group" style="font-size:12px">
+                  <label><input type="radio" name="fAntiStatus" value="active"> Active</label>
+                  <label><input type="radio" name="fAntiStatus" value="interrupted"> Interrupted</label>
+                </div>
+                <div class="er-row" style="margin-top:4px">
+                  <div class="er-field full">
+                    <label for="fAntiWhen">When interrupted?</label>
+                    <input type="text" id="fAntiWhen" placeholder="e.g. Stopped 5 days prior">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field">
+              <label for="fFastSolids">Fasting for Solids</label>
+              <input type="text" id="fFastSolids" placeholder="e.g. 8 hours">
+            </div>
+            <div class="er-field">
+              <label for="fFastLiquids">Fasting for Liquids</label>
+              <input type="text" id="fFastLiquids" placeholder="e.g. 4 hours">
+            </div>
+            <div class="er-field">
+              <label for="fPremed">Premedication</label>
+              <input type="text" id="fPremed" placeholder="e.g. Xylocaine spray">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Periprocedure -->
+        <fieldset class="er-fieldset">
+          <legend>Periprocedure Information</legend>
+          <div class="er-row">
+            <div class="er-field">
+              <label for="fDrugs">Drugs During Endoscopy</label>
+              <input type="text" id="fDrugs" placeholder="e.g. Midazolam 3mg, Fentanyl 50mcg IV">
+            </div>
+            <div class="er-field">
+              <label for="fEndoscope">Type of Endoscope</label>
+              <input type="text" id="fEndoscope" placeholder="e.g. Olympus GIF-HQ190">
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fCleanliness">Quality of Cleanliness</label>
+              <input type="text" id="fCleanliness" placeholder="e.g. Good / Boston Bowel Prep Scale">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Endoscopic Findings -->
+        <fieldset class="er-fieldset">
+          <legend>Endoscopic Findings</legend>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fEsophagus">Oesophagus</label>
+              <textarea id="fEsophagus" rows="3" placeholder="e.g. The oesophageal mucosa appears normal. The oesophagogastric and squamocolumnar junctions are located [X cm] from incisors, coincident with the hiatus."></textarea>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fCardia">Stomach – Cardia</label>
+              <textarea id="fCardia" rows="2" placeholder="e.g. The mucosa of the cardia appears normal."></textarea>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fCorpus">Stomach – Corpus/Fundus</label>
+              <textarea id="fCorpus" rows="2" placeholder="e.g. The mucosa of the corpus/fundus appears normal (biopsies)."></textarea>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fAntrum">Stomach – Antrum (including incisura)</label>
+              <textarea id="fAntrum" rows="2" placeholder="e.g. The mucosa of the antrum appears normal (biopsies)."></textarea>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fBulb">Duodenum – Bulb</label>
+              <textarea id="fBulb" rows="2" placeholder="e.g. The mucosa of the bulb appears normal. The villi appear normal."></textarea>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fD2">Duodenum – Second Portion</label>
+              <textarea id="fD2" rows="2" placeholder="e.g. The mucosa of the second duodenal portion appears normal. The villi appear normal."></textarea>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fChromo">Use of Virtual Chromoendoscopy</label>
+              <input type="text" id="fChromo" placeholder="e.g. NBI used, No chromoendoscopy">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Endoscopy Images -->
+        <fieldset class="er-fieldset">
+          <legend>Endoscopy Images</legend>
+          <div class="er-img-upload-area" id="imgUploadArea">
+            <p>Click here or drag &amp; drop endoscopy images<br><span style="font-size:11px;color:#aaa">(JPG, PNG – up to 10 images)</span></p>
+            <input type="file" id="imgInput" accept="image/*" multiple>
+          </div>
+          <div class="er-img-thumbs" id="imgThumbs"></div>
+        </fieldset>
+
+        <!-- Postprocedure -->
+        <fieldset class="er-fieldset">
+          <legend>Postprocedure Information</legend>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fBiopsies">Biopsies</label>
+              <textarea id="fBiopsies" rows="2" placeholder="e.g. Gastric antrum x2, Gastric corpus x2 for H. pylori"></textarea>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field">
+              <label for="fVials">Number of Vials</label>
+              <input type="text" id="fVials" placeholder="e.g. 2">
+            </div>
+            <div class="er-field">
+              <label for="fDuration">Duration of Exam</label>
+              <input type="text" id="fDuration" placeholder="e.g. 8 minutes">
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fStaff">Names of Staff Involved &amp; Roles</label>
+              <textarea id="fStaff" rows="2" placeholder="e.g. Dr Sajjad Hussain Chandio (Endoscopist), Nurse Aisha (Assisting)"></textarea>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field">
+              <label for="fComplications">Complications</label>
+              <select id="fComplications">
+                <option value="None">None</option>
+                <option value="Bleeding">Bleeding</option>
+                <option value="Perforation">Perforation</option>
+                <option value="Aspiration">Aspiration</option>
+                <option value="Adverse Drug Reaction">Adverse Drug Reaction</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="er-field">
+              <label for="fCompDetail">Complication Details</label>
+              <input type="text" id="fCompDetail" placeholder="If applicable">
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Diagnosis & Recommendations -->
+        <fieldset class="er-fieldset">
+          <legend>Diagnosis &amp; Recommendations</legend>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fDiagnosis">Endoscopic Diagnosis</label>
+              <textarea id="fDiagnosis" rows="3" placeholder="e.g. Normal upper GI endoscopy / Gastric ulcer / Oesophagitis LA Grade B"></textarea>
+            </div>
+          </div>
+          <div class="er-row">
+            <div class="er-field full">
+              <label for="fRecommendations">Recommendations &amp; Follow-up</label>
+              <textarea id="fRecommendations" rows="3" placeholder="e.g. Continue PPI therapy, repeat endoscopy in 8 weeks"></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="er-actions">
+          <button type="button" class="er-btn er-btn-primary" id="previewBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Preview Report
+          </button>
+          <button type="reset" class="er-btn er-btn-secondary">Clear Form</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== PREVIEW OVERLAY ==================== -->
+  <div class="er-preview-overlay" id="previewOverlay">
+    <div class="er-preview-wrapper">
+
+      <div class="er-preview-toolbar">
+        <button class="er-toolbar-btn print-btn" id="printBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print / Download PDF
+        </button>
+        <button class="er-toolbar-btn close-btn" id="closePreview">✕ Close</button>
+      </div>
+
+      <!-- The Report -->
+      <div class="er-report" id="reportTemplate">
+
+        <!-- Header -->
+        <div class="er-report-header">
+          <div class="er-report-header-left">
+            <img src="../assets/logo-icon.jpeg" alt="">
+            <div>
+              <span class="er-hdr-name">Chandio Gastro & Endoscopy Center</span><br>
+              <span class="er-hdr-text">Specialists in Gut &amp; Metabolics</span>
+            </div>
+          </div>
+          <div class="er-report-header-right">
+            Upper GI Endoscopy<br>Report
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="er-report-body">
+
+          <div class="er-report-title">UPPER GI ENDOSCOPY</div>
+
+          <!-- Preprocedure -->
+          <div class="er-section-heading">Preprocedure information</div>
+          <div class="er-info-grid">
+            <div class="er-info-line"><strong>Date of the exam:</strong> <span id="pExamDate"></span></div>
+            <div class="er-info-line"><strong>Fasting for solids:</strong> <span id="pFastSolids"></span></div>
+            <div class="er-info-line"><strong>Name:</strong> <span id="pName"></span></div>
+            <div class="er-info-line"><strong>Fasting for liquids:</strong> <span id="pFastLiquids"></span></div>
+            <div class="er-info-line"><strong>Date of birth:</strong> <span id="pDOB"></span></div>
+            <div class="er-info-line"><strong>Premedication:</strong> <span id="pPremed"></span></div>
+            <div class="er-info-line-full er-info-line"><strong>Indication:</strong> <span id="pIndication"></span></div>
+          </div>
+          <div id="pAntiThromBlock">
+            <div class="er-info-line" style="margin-top:4px"><strong>Use of antithrombotic drugs:</strong></div>
+            <div class="er-checkbox-line er-indent">
+              <span class="box" id="pAntiNo"></span> No &nbsp;&nbsp;
+              <span class="box" id="pAntiYes"></span> Yes
+            </div>
+            <div id="pAntiDetails" style="display:none">
+              <div class="er-info-line er-indent">Which: <span id="pAntiWhich"></span></div>
+              <div class="er-checkbox-line er-indent">
+                <span class="box" id="pAntiActive"></span> active &nbsp;&nbsp;
+                <span class="box" id="pAntiInterrupted"></span> interrupted, when? <span id="pAntiWhen"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Periprocedure -->
+          <div class="er-section-heading">Periprocedure information</div>
+          <div class="er-info-line"><strong>Drugs during endoscopy:</strong> <span id="pDrugs"></span></div>
+          <div class="er-info-line"><strong>Type of endoscope:</strong> <span id="pEndoscope"></span></div>
+          <div class="er-info-line"><strong>Quality of cleanliness:</strong> <span id="pCleanliness"></span></div>
+
+          <!-- Endoscopic Findings -->
+          <div class="er-section-heading">Endoscopic findings</div>
+
+          <div class="er-finding-title">Oesophagus</div>
+          <div class="er-finding-sub" id="pEsophagus"></div>
+
+          <div class="er-finding-title">Stomach</div>
+          <div class="er-finding-sub"><u>Cardia</u>: <span id="pCardia"></span></div>
+          <div class="er-finding-sub"><u>Corpus/fundus</u>: <span id="pCorpus"></span></div>
+          <div class="er-finding-sub"><u>Antrum (including incisura)</u>: <span id="pAntrum"></span></div>
+
+          <div class="er-finding-title">Duodenum</div>
+          <div class="er-finding-sub"><u>Bulb</u>: <span id="pBulb"></span></div>
+          <div class="er-finding-sub"><u>Second portion</u>: <span id="pD2"></span></div>
+
+          <div class="er-info-line" style="margin-top:8px"><strong>Use of virtual chromoendoscopy:</strong> <span id="pChromo"></span></div>
+
+          <!-- Images -->
+          <div class="er-images-row" id="pImages"></div>
+
+          <!-- Diagnosis -->
+          <div id="pDiagBlock" style="display:none">
+            <div class="er-section-heading">Endoscopic diagnosis</div>
+            <div class="er-finding-sub" id="pDiagnosis" style="white-space:pre-wrap"></div>
+          </div>
+
+          <!-- Postprocedure -->
+          <div class="er-section-heading">Postprocedure information</div>
+          <div class="er-info-line"><strong>Biopsies:</strong> <span id="pBiopsies"></span></div>
+          <div class="er-info-line"><strong>Number of vials:</strong> <span id="pVials"></span></div>
+          <div class="er-info-line"><strong>Duration of the exam:</strong> <span id="pDuration"></span></div>
+          <div class="er-info-line"><strong>Complications:</strong> <span id="pComplications"></span></div>
+          <div class="er-info-line"><strong>Names of all staff involved and roles:</strong> <span id="pStaff"></span></div>
+
+          <!-- Recommendations -->
+          <div id="pRecsBlock" style="display:none">
+            <div class="er-section-heading">Recommendations &amp; follow-up</div>
+            <div class="er-finding-sub" id="pRecommendations" style="white-space:pre-wrap"></div>
+          </div>
+
+          <!-- Signature -->
+          <div style="margin-top:20px; border-top:1px solid #ddd; padding-top:12px;">
+            <div class="er-info-line"><strong>Endoscopist:</strong> Dr Sajjad Hussain Chandio – MBBS, FCPS</div>
+            <div class="er-info-line">General &amp; Interventional Gastroenterologist</div>
+            <div class="er-info-line" style="margin-top:6px; color:#888; font-style:italic">Electronically generated on: <span id="pGenDate"></span></div>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="er-report-footer">
+          Chandio Gastro &amp; Endoscopy Center – Upper GI Endoscopy Report
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="footer-logo-icon">
+        <div class="footer-logo-text">
+          <span class="footer-logo-name">Chandio Gastro & Endoscopy Center</span>
+          <span class="footer-logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">Home</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms and condition</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+  (function() {
+    var overlay = document.getElementById('previewOverlay');
+    var uploadedImages = [];
+
+    /* ---- Date Helpers ---- */
+    function fmtDate(v) {
+      if (!v) return '';
+      var p = v.split('-');
+      return p.length === 3 ? p[2]+'/'+p[1]+'/'+p[0] : v;
+    }
+    function todayFmt() {
+      var d = new Date();
+      return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
+    }
+
+    /* ---- Antithrombotic Toggle ---- */
+    document.querySelectorAll('input[name="fAntiThrom"]').forEach(function(r) {
+      r.addEventListener('change', function() {
+        var det = document.getElementById('antiThromDetails');
+        det.classList.toggle('visible', this.value === 'yes');
+      });
+    });
+
+    /* ---- Image Upload ---- */
+    var uploadArea = document.getElementById('imgUploadArea');
+    var imgInput = document.getElementById('imgInput');
+    var thumbsEl = document.getElementById('imgThumbs');
+
+    uploadArea.addEventListener('click', function() { imgInput.click(); });
+    uploadArea.addEventListener('dragover', function(e) { e.preventDefault(); uploadArea.style.borderColor='#0e7c86'; });
+    uploadArea.addEventListener('dragleave', function() { uploadArea.style.borderColor='#ccc'; });
+    uploadArea.addEventListener('drop', function(e) {
+      e.preventDefault(); uploadArea.style.borderColor='#ccc';
+      handleFiles(e.dataTransfer.files);
+    });
+    imgInput.addEventListener('change', function() { handleFiles(this.files); this.value=''; });
+
+    function handleFiles(files) {
+      Array.from(files).forEach(function(file) {
+        if (!file.type.startsWith('image/') || uploadedImages.length >= 10) return;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImages.push({ name: file.name, data: e.target.result });
+          renderThumbs();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderThumbs() {
+      thumbsEl.innerHTML = '';
+      uploadedImages.forEach(function(img, i) {
+        var div = document.createElement('div');
+        div.className = 'er-img-thumb';
+        div.innerHTML = '<img src="'+img.data+'" alt="'+img.name+'">' +
+          '<button type="button" class="remove-img" data-idx="'+i+'">✕</button>';
+        thumbsEl.appendChild(div);
+      });
+      thumbsEl.querySelectorAll('.remove-img').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          uploadedImages.splice(parseInt(this.dataset.idx), 1);
+          renderThumbs();
+        });
+      });
+    }
+
+    /* ---- Preview ---- */
+    document.getElementById('previewBtn').addEventListener('click', function() {
+      var name = document.getElementById('fPatientName').value.trim();
+      var dob = document.getElementById('fDOB').value;
+      var examDate = document.getElementById('fExamDate').value;
+      var indication = document.getElementById('fIndication').value.trim();
+
+      if (!name) { alert('Please enter the patient name.'); document.getElementById('fPatientName').focus(); return; }
+      if (!dob) { alert('Please enter the date of birth.'); document.getElementById('fDOB').focus(); return; }
+      if (!examDate) { alert('Please enter the exam date.'); document.getElementById('fExamDate').focus(); return; }
+      if (!indication) { alert('Please enter the indication.'); document.getElementById('fIndication').focus(); return; }
+
+      /* Preprocedure */
+      document.getElementById('pExamDate').textContent = fmtDate(examDate);
+      document.getElementById('pName').textContent = name;
+      document.getElementById('pDOB').textContent = fmtDate(dob);
+      document.getElementById('pIndication').textContent = indication;
+      document.getElementById('pFastSolids').textContent = document.getElementById('fFastSolids').value || '—';
+      document.getElementById('pFastLiquids').textContent = document.getElementById('fFastLiquids').value || '—';
+      document.getElementById('pPremed').textContent = document.getElementById('fPremed').value || '—';
+
+      /* Antithrombotic */
+      var antiVal = document.querySelector('input[name="fAntiThrom"]:checked').value;
+      document.getElementById('pAntiNo').className = 'box' + (antiVal==='no' ? ' checked' : '');
+      document.getElementById('pAntiYes').className = 'box' + (antiVal==='yes' ? ' checked' : '');
+      var antiDet = document.getElementById('pAntiDetails');
+      if (antiVal === 'yes') {
+        antiDet.style.display = 'block';
+        document.getElementById('pAntiWhich').textContent = document.getElementById('fAntiWhich').value || '—';
+        var antiStatus = document.querySelector('input[name="fAntiStatus"]:checked');
+        var sv = antiStatus ? antiStatus.value : '';
+        document.getElementById('pAntiActive').className = 'box' + (sv==='active' ? ' checked' : '');
+        document.getElementById('pAntiInterrupted').className = 'box' + (sv==='interrupted' ? ' checked' : '');
+        document.getElementById('pAntiWhen').textContent = document.getElementById('fAntiWhen').value || '';
+      } else {
+        antiDet.style.display = 'none';
+      }
+
+      /* Periprocedure */
+      document.getElementById('pDrugs').textContent = document.getElementById('fDrugs').value || '—';
+      document.getElementById('pEndoscope').textContent = document.getElementById('fEndoscope').value || '—';
+      document.getElementById('pCleanliness').textContent = document.getElementById('fCleanliness').value || '—';
+
+      /* Findings */
+      document.getElementById('pEsophagus').textContent = document.getElementById('fEsophagus').value || 'No findings documented.';
+      document.getElementById('pCardia').textContent = document.getElementById('fCardia').value || '—';
+      document.getElementById('pCorpus').textContent = document.getElementById('fCorpus').value || '—';
+      document.getElementById('pAntrum').textContent = document.getElementById('fAntrum').value || '—';
+      document.getElementById('pBulb').textContent = document.getElementById('fBulb').value || '—';
+      document.getElementById('pD2').textContent = document.getElementById('fD2').value || '—';
+      document.getElementById('pChromo').textContent = document.getElementById('fChromo').value || '—';
+
+      /* Images */
+      var imagesEl = document.getElementById('pImages');
+      imagesEl.innerHTML = '';
+      uploadedImages.forEach(function(img, i) {
+        var wrap = document.createElement('div');
+        wrap.innerHTML = '<img src="'+img.data+'" alt="Image '+(i+1)+'">' +
+          '<div class="er-img-caption">Image '+(i+1)+'</div>';
+        imagesEl.appendChild(wrap);
+      });
+
+      /* Diagnosis */
+      var diag = document.getElementById('fDiagnosis').value.trim();
+      var diagBlock = document.getElementById('pDiagBlock');
+      if (diag) { diagBlock.style.display = 'block'; document.getElementById('pDiagnosis').textContent = diag; }
+      else { diagBlock.style.display = 'none'; }
+
+      /* Postprocedure */
+      document.getElementById('pBiopsies').textContent = document.getElementById('fBiopsies').value || 'None';
+      document.getElementById('pVials').textContent = document.getElementById('fVials').value || '—';
+      document.getElementById('pDuration').textContent = document.getElementById('fDuration').value || '—';
+      document.getElementById('pStaff').textContent = document.getElementById('fStaff').value || '—';
+      var comp = document.getElementById('fComplications').value;
+      var compD = document.getElementById('fCompDetail').value.trim();
+      document.getElementById('pComplications').textContent = comp + (compD ? ' – '+compD : '');
+
+      /* Recommendations */
+      var recs = document.getElementById('fRecommendations').value.trim();
+      var recsBlock = document.getElementById('pRecsBlock');
+      if (recs) { recsBlock.style.display = 'block'; document.getElementById('pRecommendations').textContent = recs; }
+      else { recsBlock.style.display = 'none'; }
+
+      /* Generated date */
+      document.getElementById('pGenDate').textContent = todayFmt();
+
+      overlay.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    });
+
+    /* ---- Close / Print ---- */
+    document.getElementById('closePreview').addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) closeOverlay(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && overlay.classList.contains('visible')) closeOverlay(); });
+    document.getElementById('printBtn').addEventListener('click', function() { window.print(); });
+
+    function closeOverlay() {
+      overlay.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+  })();
+  </script>
+</body>
+</html>

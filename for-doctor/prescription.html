@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Prescription – Chandio Gastro &amp; Endoscopy Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@300;400;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* ===== Prescription Page ===== */
+    .rx-page-wrap { background:#eaeaea; padding:30px 0 60px; }
+
+    .rx-form-section { max-width:820px; margin:0 auto; padding:0 20px; }
+    .rx-form-section h1 { font-family:'Playfair Display',Georgia,serif; color:#0e7c86; font-size:28px; margin-bottom:8px; }
+    .rx-form-section .rx-subtitle { font-size:14px; color:#666; margin-bottom:28px; }
+
+    .rx-fieldset { border:1px solid #d0d0d0; border-radius:4px; padding:22px 20px 14px; margin-bottom:20px; background:#fff; }
+    .rx-fieldset legend { font-family:'Playfair Display',Georgia,serif; font-size:17px; color:#0e7c86; font-weight:700; padding:0 8px; }
+
+    .rx-row { display:flex; gap:16px; margin-bottom:14px; }
+    .rx-row:last-child { margin-bottom:0; }
+    .rx-field { flex:1; display:flex; flex-direction:column; }
+    .rx-field.full { flex:0 0 100%; }
+    .rx-field.w2 { flex:2; }
+    .rx-field label { font-size:12.5px; font-weight:600; color:#333; margin-bottom:4px; }
+    .rx-field label .req { color:#c0392b; }
+
+    .rx-field input, .rx-field textarea, .rx-field select {
+      width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:3px;
+      font-size:13.5px; font-family:'Open Sans',Arial,sans-serif; color:#333;
+    }
+    .rx-field input:focus, .rx-field textarea:focus, .rx-field select:focus {
+      border-color:#0e7c86; outline:none; box-shadow:0 0 0 2px rgba(14,124,134,0.12);
+    }
+    .rx-field select { appearance:auto; }
+
+    .rx-field input.urdu-input, .rx-field textarea.urdu-input, .rx-field select.urdu-input {
+      font-family:'Noto Nastaliq Urdu','Jameel Noori Nastaleeq',sans-serif;
+      direction:rtl; text-align:right; font-size:14px; line-height:2;
+    }
+    .rx-field select.urdu-input option { font-size:14px; line-height:2; }
+
+    .rx-med-entry { background:#f9fafa; border:1px solid #e0e0e0; border-radius:4px; padding:14px 16px 10px; margin-bottom:12px; }
+    .rx-med-entry:last-child { margin-bottom:0; }
+    .rx-med-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+    .rx-med-num { font-weight:700; font-size:14px; color:#0e7c86; }
+    .rx-med-remove { background:none; border:none; color:#c0392b; font-size:12px; cursor:pointer; text-decoration:underline; }
+    .rx-med-remove:hover { color:#e74c3c; }
+
+    .rx-add-row { text-align:center; margin-bottom:20px; }
+    .rx-add-btn { display:inline-flex; align-items:center; gap:6px; padding:10px 24px; background:#0e7c86; color:#fff; border:none; border-radius:3px; font-size:14px; font-family:'Open Sans',sans-serif; cursor:pointer; }
+    .rx-add-btn:hover { background:#095a62; }
+
+    .rx-actions { display:flex; gap:12px; margin-top:24px; }
+    .rx-btn { display:inline-flex; align-items:center; gap:6px; padding:11px 28px; font-size:14px; font-family:'Open Sans',sans-serif; border:none; border-radius:3px; cursor:pointer; }
+    .rx-btn-primary { background:#0e7c86; color:#fff; }
+    .rx-btn-primary:hover { background:#095a62; }
+    .rx-btn-secondary { background:#fff; color:#666; border:1px solid #ccc; }
+    .rx-btn-secondary:hover { background:#f5f5f5; }
+
+    /* -- Preview Overlay -- */
+    .rx-preview-overlay { display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.55); overflow-y:auto; padding:30px 20px; }
+    .rx-preview-overlay.visible { display:flex; justify-content:center; align-items:flex-start; }
+    .rx-preview-wrapper { position:relative; width:100%; max-width:780px; }
+    .rx-preview-toolbar { display:flex; justify-content:flex-end; gap:10px; margin-bottom:12px; }
+    .rx-toolbar-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 20px; font-size:13px; font-family:'Open Sans',sans-serif; border:none; border-radius:3px; cursor:pointer; }
+    .rx-toolbar-btn.print-btn { background:#0e7c86; color:#fff; }
+    .rx-toolbar-btn.print-btn:hover { background:#095a62; }
+    .rx-toolbar-btn.close-btn { background:#fff; color:#444; border:1px solid #ccc; }
+    .rx-toolbar-btn.close-btn:hover { background:#f0f0f0; }
+
+    /* ===== PRESCRIPTION SLIP ===== */
+    .rx-slip { width:100%; background:#fff; box-shadow:0 2px 20px rgba(0,0,0,0.18); font-family:'Open Sans',Arial,Helvetica,sans-serif; font-size:10.5px; color:#222; line-height:1.45; min-height:950px; display:flex; flex-direction:column; }
+    .urdu { font-family:'Noto Nastaliq Urdu','Jameel Noori Nastaleeq',sans-serif; direction:rtl; }
+
+    /* Header: 3 columns */
+    .rx-slip-header { display:flex; align-items:stretch; padding:16px 24px 12px; border-bottom:2px solid #333; }
+    .rx-hdr-left { flex:1; }
+    .rx-hdr-center { flex:0 0 80px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 10px; }
+    .rx-hdr-right { flex:1; text-align:right; direction:rtl; }
+
+    .rx-hdr-left .rx-doc-name { font-size:15px; font-weight:700; color:#222; margin-bottom:1px; }
+    .rx-hdr-left .rx-doc-qual { font-size:9.5px; color:#444; }
+    .rx-hdr-left .rx-doc-title { font-size:9.5px; color:#444; }
+    .rx-hdr-left .rx-doc-addr { font-size:8px; color:#666; line-height:1.4; margin-top:3px; }
+
+    .rx-hdr-center img {
+  height: auto;
+  width: 100px;
+  border-radius: 50%;
+  object-fit: fill;
+}
+    .rx-hdr-center .rx-logo-label { font-family:'Playfair Display',Georgia,serif; font-size:10px; color:#0e7c86; line-height:1.2; margin-top:3px; white-space:nowrap; }
+    .rx-hdr-center .rx-logo-sub { font-size:6.5px; color:#888; display:block; white-space:nowrap; }
+
+    .rx-hdr-right .rx-ur-name { font-family:'Noto Nastaliq Urdu',sans-serif; font-size:18px; font-weight:700; color:#222; line-height:1.8; }
+    .rx-hdr-right .rx-ur-line { font-family:'Noto Nastaliq Urdu',sans-serif; font-size:11px; color:#444; line-height:1.9; }
+
+    /* Patient Grid */
+    .rx-pgrid { border-bottom:1px solid #bbb; font-size:10px; }
+    .rx-prow { display:flex; border-bottom:1px solid #e0e0e0; }
+    .rx-prow:last-child { border-bottom:none; }
+    .rx-pcell { padding:4px 10px; border-right:1px solid #e0e0e0; display:flex; align-items:center; gap:3px; white-space:nowrap; overflow:hidden; }
+    .rx-pcell:last-child { border-right:none; }
+    .rx-pcell strong { font-weight:700; color:#555; }
+    .rx-pcell span { color:#222; overflow:hidden; text-overflow:ellipsis; }
+    .rx-pc-35 { flex:0 0 32%; }
+    .rx-pc-fill { flex:1; }
+    .rx-pc-20 { flex:0 0 20%; }
+
+    /* Clinical */
+    .rx-clinical { padding:10px 24px; border-bottom:1px solid #ccc; }
+    .rx-clin-row { display:flex; gap:20px; margin-bottom:3px; }
+    .rx-clin-item { font-size:10px; line-height:1.55; }
+    .rx-clin-item strong { font-weight:700; }
+    .rx-clin-item.half { flex:1; }
+    .rx-clin-item.full { flex:0 0 100%; }
+
+    /* Medicines */
+    .rx-medicines { padding:12px 24px; flex:1; }
+    .rx-medicines-label { font-weight:700; font-size:10.5px; text-decoration:underline; margin-bottom:8px; }
+
+    .rx-med-row { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; padding-bottom:6px; border-bottom:1px dotted #e0e0e0; }
+    .rx-med-row:last-child { border-bottom:none; }
+    .rx-med-left { flex:1; font-size:10.5px; line-height:1.6; }
+    .rx-med-left .rx-ml-main { font-weight:600; }
+    .rx-med-left .rx-ml-detail { color:#444; font-size:10px; }
+    .rx-med-left .rx-ml-dates { color:#777; font-size:9px; }
+    .rx-med-right { flex:0 0 auto; text-align:right; direction:rtl; font-family:'Noto Nastaliq Urdu',sans-serif; font-size:12px; line-height:2; color:#444; padding-left:12px; max-width:45%; }
+
+    /* Advice */
+    .rx-advice-section { padding:8px 24px; border-top:1px solid #ddd; }
+    .rx-advice-section strong { font-weight:700; text-decoration:underline; font-size:10.5px; }
+    .rx-advice-section p { font-size:10px; line-height:1.55; margin-top:3px; white-space:pre-wrap; }
+
+    /* Footer */
+    .rx-slip-footer { border-top:2px solid #333; padding:8px 24px; display:flex; justify-content:space-between; align-items:center; font-size:8.5px; color:#888; margin-top:auto; }
+    .rx-slip-footer .rx-court { font-weight:700; font-size:10px; color:#555; letter-spacing:0.5px; }
+
+    /* ===== PRINT ===== */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    @media print {
+      html, body { margin:0; padding:0; width:210mm; height:297mm; }
+      body * { visibility:hidden; }
+      .rx-preview-overlay, .rx-preview-overlay * { visibility:visible; }
+      .rx-preview-overlay { display:flex!important; position:static; background:none; padding:0; margin:0; width:100%; height:100%; }
+      .rx-preview-toolbar { display:none!important; }
+      .rx-preview-wrapper { max-width:100%; width:100%; height:100%; margin:0; }
+      .rx-slip { box-shadow:none; min-height:100vh; width:100%; height:100vh; }
+      .rx-slip-header, .rx-slip-footer { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .rx-medicines { flex:1; }
+      .site-header, .site-footer, .rx-form-section, .rx-page-wrap { display:none!important; }
+    }
+
+    @media (max-width:600px) {
+      .rx-row { flex-direction:column; gap:10px; }
+      .rx-slip-header { flex-direction:column; gap:8px; }
+      .rx-hdr-right { text-align:center; }
+      .rx-prow { flex-wrap:wrap; }
+      .rx-pcell { flex:1 1 45%!important; }
+      .rx-clin-row { flex-direction:column; gap:2px; }
+      .rx-med-row { flex-direction:column; }
+      .rx-med-right { text-align:left; direction:ltr; padding-left:0; max-width:100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="logo-icon">
+        <div class="logo-text">
+          <span class="logo-name">Chandio Gastro & Endoscopy Center</span>
+          <span class="logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../services/gastroscopy.html">Gastroscopy</a></li>
+              <li><a href="../services/colonoscopy.html">Colonoscopy</a></li>
+              <li><a href="../services/bowel-cancer-screening.html">Bowel Cancer Screening</a></li>
+              <li><a href="../services/open-access-endoscopy.html">Open access endoscopy</a></li>
+              <li><a href="../services/consultation-services.html">Consultation services</a></li>
+              <li class="has-submenu">
+                <a href="#">Advanced Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="../services/ercp.html">ERCP</a></li>
+                  <li><a href="../services/eus.html">EUS</a></li>
+                  <li><a href="../services/emr.html">EMR/Removal of Polyps</a></li>
+                </ul>
+              </li>
+              <li class="has-submenu">
+                <a href="#">Bariatric Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="../services/gastric-balloon.html">Gastric Balloon</a></li>
+                  <li><a href="../services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Obesity Management <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../services/gastric-balloon.html">Gastric Balloon</a></li>
+              <li><a href="../services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+            </ul>
+          </li>
+          <li><a href="../obesity-insights/index.html" class="nav-link">&ldquo;Obesity Insights&rdquo;</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">For Patients <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../for-patients/symptoms.html">Symptoms</a></li>
+              <li><a href="../for-patients/appointment.html">Appointment</a></li>
+              <li><a href="../for-patients/practice-locations.html">Practice Locations</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link active">For Doctor <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="referral-letter.html">Create Referral Letter</a></li>
+              <li><a href="endoscopy-report.html">Create Endoscopy Report</a></li>
+              <li><a href="prescription.html">Create Prescription</a></li>
+            </ul>
+          </li>
+          <li class="nav-search">
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== FORM ==================== -->
+  <div class="rx-page-wrap">
+    <div class="rx-form-section">
+      <h1>Create Prescription</h1>
+      <p class="rx-subtitle">Enter patient &amp; prescription details, then click <strong>Preview Prescription</strong>.</p>
+
+      <form id="rxForm" autocomplete="off">
+
+        <fieldset class="rx-fieldset">
+          <legend>Visit Information</legend>
+          <div class="rx-row">
+            <div class="rx-field">
+              <label for="fMRN">MR No.</label>
+              <input type="text" id="fMRN" placeholder="e.g. 0264-26-001383">
+            </div>
+            <div class="rx-field">
+              <label for="fVisitNo">Visit No.</label>
+              <input type="text" id="fVisitNo">
+            </div>
+            <div class="rx-field">
+              <label for="fVisitDate">Date <span class="req">*</span></label>
+              <input type="date" id="fVisitDate" required>
+            </div>
+            <div class="rx-field">
+              <label for="fVisitTime">Time</label>
+              <input type="time" id="fVisitTime">
+            </div>
+          </div>
+          <div class="rx-row">
+            <div class="rx-field">
+              <label for="fHospital">Hospital / Facility</label>
+              <select id="fHospital">
+                <option value="Al-Suffah Hospital, Rawalpindi">Al-Suffah Hospital, Rawalpindi</option>
+                <option value="Rawalpindi International Hospital">Rawalpindi International Hospital</option>
+                <option value="Jinnah Hospital, Gujar Khan">Jinnah Hospital, Gujar Khan</option>
+                <option value="Mohammed Medical Complex, Daulatala">Mohammed Medical Complex, Daulatala</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="rx-fieldset">
+          <legend>Patient Information</legend>
+          <div class="rx-row">
+            <div class="rx-field w2">
+              <label for="fPatientName">Patient Name <span class="req">*</span></label>
+              <input type="text" id="fPatientName" required placeholder="e.g. Sheikh Muhammad Zaheer">
+            </div>
+            <div class="rx-field">
+              <label for="fAge">Age <span class="req">*</span></label>
+              <input type="text" id="fAge" required placeholder="e.g. 45y 5m">
+            </div>
+            <div class="rx-field">
+              <label for="fGender">Gender</label>
+              <select id="fGender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="rx-row">
+            <div class="rx-field w2">
+              <label for="fAddress">Address</label>
+              <input type="text" id="fAddress" placeholder="e.g. House 5, Street 10, Rawalpindi">
+            </div>
+            <div class="rx-field">
+              <label for="fCity">City</label>
+              <input type="text" id="fCity" placeholder="e.g. Rawalpindi">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="rx-fieldset">
+          <legend>Clinical Details</legend>
+          <div class="rx-row">
+            <div class="rx-field">
+              <label for="fComplaints">Complaint(s)</label>
+              <textarea id="fComplaints" rows="2" placeholder="e.g. Generalised bodyaches, Cough"></textarea>
+            </div>
+            <div class="rx-field">
+              <label for="fPrimaryDx">Primary Diagnosis</label>
+              <textarea id="fPrimaryDx" rows="2" placeholder="e.g. GERD, Gastritis"></textarea>
+            </div>
+          </div>
+          <div class="rx-row">
+            <div class="rx-field full">
+              <label for="fSecondaryDx">Secondary Diagnosis</label>
+              <input type="text" id="fSecondaryDx" placeholder="e.g. H. pylori infection">
+            </div>
+          </div>
+          <div class="rx-row">
+            <div class="rx-field full">
+              <label for="fExamFindings">Exam Findings</label>
+              <textarea id="fExamFindings" rows="2" placeholder="e.g. Abdomen soft non tender"></textarea>
+            </div>
+          </div>
+          <div class="rx-row">
+            <div class="rx-field full">
+              <label for="fHistory">History</label>
+              <textarea id="fHistory" rows="3" placeholder="e.g. Patient has history of recurrent epigastric pain..."></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="rx-fieldset">
+          <legend>Medicine(s)</legend>
+          <div id="medsContainer">
+            <div class="rx-med-entry" data-med="1">
+              <div class="rx-med-header"><span class="rx-med-num">1.</span></div>
+              <div class="rx-row">
+                <div class="rx-field">
+                  <label>Type</label>
+                  <select name="mType">
+                    <option value="Tab">Tab</option><option value="Cap">Cap</option><option value="Inj">Inj</option>
+                    <option value="Syp">Syp</option><option value="Sachet">Sachet</option><option value="Inf">Inf</option>
+                    <option value="Susp">Susp</option><option value="Drops">Drops</option><option value="Supp">Supp</option><option value="Cream">Cream</option>
+                  </select>
+                </div>
+                <div class="rx-field w2">
+                  <label>Brand Name <span class="req">*</span></label>
+                  <input type="text" name="mBrand" required placeholder="e.g. Risek">
+                </div>
+                <div class="rx-field w2">
+                  <label>Generic Name</label>
+                  <input type="text" name="mGeneric" placeholder="e.g. Omeprazole">
+                </div>
+              </div>
+              <div class="rx-row">
+                <div class="rx-field">
+                  <label>Dose</label>
+                  <input type="text" name="mDose" placeholder="e.g. 40mg">
+                </div>
+                <div class="rx-field">
+                  <label>Frequency</label>
+                  <select name="mFreq">
+                    <option value="Once Daily">Once Daily</option><option value="Twice Daily">Twice Daily</option>
+                    <option value="Three times a day">Three times a day</option><option value="Four times a day">Four times a day</option>
+                    <option value="Immediately">Immediately</option><option value="As needed (PRN)">As needed (PRN)</option>
+                    <option value="At bedtime">At bedtime</option><option value="Before meals">Before meals</option>
+                    <option value="After meals">After meals</option><option value="STAT">STAT</option>
+                  </select>
+                </div>
+                <div class="rx-field">
+                  <label>Duration</label>
+                  <input type="text" name="mDuration" placeholder="e.g. 2 weeks">
+                </div>
+                <div class="rx-field">
+                  <label>Start Date</label>
+                  <input type="date" name="mStart">
+                </div>
+              </div>
+              <div class="rx-row">
+                <div class="rx-field full">
+                  <label>ہدایات (اردو میں) — Dosage Instructions in Urdu</label>
+                  <select name="mUrdu" class="urdu-input">
+                    <option value="">— اردو ہدایات منتخب کریں —</option>
+                    <option value="ایک گولی روزانہ ایک دفعہ">ایک گولی روزانہ ایک دفعہ</option>
+                    <option value="ایک گولی دن میں دو دفعہ (صبح شام)">ایک گولی دن میں دو دفعہ (صبح شام)</option>
+                    <option value="ایک گولی دن میں تین دفعہ (صبح دوپہر شام)">ایک گولی دن میں تین دفعہ (صبح دوپہر شام)</option>
+                    <option value="ایک گولی دن میں چار دفعہ">ایک گولی دن میں چار دفعہ</option>
+                    <option value="ایک گولی صبح ناشتے سے پہلے">ایک گولی صبح ناشتے سے پہلے</option>
+                    <option value="ایک گولی رات سونے سے پہلے">ایک گولی رات سونے سے پہلے</option>
+                    <option value="ایک گولی کھانے سے پہلے">ایک گولی کھانے سے پہلے</option>
+                    <option value="ایک گولی کھانے کے بعد">ایک گولی کھانے کے بعد</option>
+                    <option value="ایک کیپسول روزانہ ایک دفعہ">ایک کیپسول روزانہ ایک دفعہ</option>
+                    <option value="ایک کیپسول دن میں دو دفعہ">ایک کیپسول دن میں دو دفعہ</option>
+                    <option value="ایک انجکشن فوری طور پر">ایک انجکشن فوری طور پر</option>
+                    <option value="انجکشن فوری طور پر ایک دن کے لیے">انجکشن فوری طور پر ایک دن کے لیے</option>
+                    <option value="انفیوژن فوری طور پر">انفیوژن فوری طور پر</option>
+                    <option value="ایک ساشے روزانہ ایک دفعہ">ایک ساشے روزانہ ایک دفعہ</option>
+                    <option value="ایک ساشے دن میں دو دفعہ">ایک ساشے دن میں دو دفعہ</option>
+                    <option value="ایک چمچ دن میں تین دفعہ">ایک چمچ دن میں تین دفعہ</option>
+                    <option value="ایک چمچ دن میں دو دفعہ">ایک چمچ دن میں دو دفعہ</option>
+                    <option value="دو چمچ دن میں تین دفعہ">دو چمچ دن میں تین دفعہ</option>
+                    <option value="ضرورت کے مطابق">ضرورت کے مطابق</option>
+                    <option value="ایک سپازٹری ضرورت کے مطابق">ایک سپازٹری ضرورت کے مطابق</option>
+                    <option value="کریم متاثرہ جگہ پر دن میں دو دفعہ لگائیں">کریم متاثرہ جگہ پر دن میں دو دفعہ لگائیں</option>
+                    <option value="قطرے ہدایت کے مطابق">قطرے ہدایت کے مطابق</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="rx-add-row">
+          <button type="button" class="rx-add-btn" id="addMedBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Medication
+          </button>
+        </div>
+
+        <fieldset class="rx-fieldset">
+          <legend>Advice &amp; Follow-up</legend>
+          <div class="rx-row">
+            <div class="rx-field full">
+              <label for="fAdvice">Advice</label>
+              <textarea id="fAdvice" rows="3" placeholder="e.g. Review after labs, Avoid spicy food"></textarea>
+            </div>
+          </div>
+          <div class="rx-row">
+            <div class="rx-field">
+              <label for="fFollowUp">Follow-up Date</label>
+              <input type="date" id="fFollowUp">
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="rx-actions">
+          <button type="button" class="rx-btn rx-btn-primary" id="previewBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Preview Prescription
+          </button>
+          <button type="reset" class="rx-btn rx-btn-secondary">Clear Form</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== PREVIEW ==================== -->
+  <div class="rx-preview-overlay" id="previewOverlay">
+    <div class="rx-preview-wrapper">
+      <div class="rx-preview-toolbar">
+        <button class="rx-toolbar-btn print-btn" id="printBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print / Download PDF
+        </button>
+        <button class="rx-toolbar-btn close-btn" id="closePreview">✕ Close</button>
+      </div>
+
+      <!-- Prescription Slip -->
+      <div class="rx-slip" id="rxSlip">
+
+        <!-- HEADER: English | Logo | Urdu -->
+        <div class="rx-slip-header">
+          <div class="rx-hdr-left">
+            <div class="rx-doc-name">Dr Sajjad Hussain Chandio</div>
+            <div class="rx-doc-qual">MBBS, FCPS (Gastroenterology)</div>
+            <div class="rx-doc-title">General &amp; Interventional Gastroenterologist</div>
+            <div class="rx-doc-addr">Al-Suffah Hospital, Rawalpindi<br>Mohammed Medical Complex, Daulatala<br>Jinnah Hospital, Gujar Khan<br>Rawalpindi International Hospital</div>
+          </div>
+          <div class="rx-hdr-center">
+            <img src="../assets/logo-icon.jpeg" alt="">
+            
+          </div>
+          <div class="rx-hdr-right">
+            <div class="rx-ur-name">ڈاکٹر سجاد حسین چاندیو</div>
+            <div class="rx-ur-line">ایم بی بی ایس، ایف سی پی ایس (معدہ و آنتوں)</div>
+            <div class="rx-ur-line">ماہر امراضِ معدہ و آنتوں</div>
+            <div class="rx-ur-line" style="margin-top:2px; font-size:10px;">الصفاح ہسپتال، راولپنڈی<br>محمد میڈیکل کمپلیکس، دولتالہ<br>جناح ہسپتال، گوجر خان<br>راولپنڈی انٹرنیشنل ہسپتال</div>
+          </div>
+        </div>
+
+        <!-- PATIENT GRID -->
+        <div class="rx-pgrid">
+          <div class="rx-prow">
+            <div class="rx-pcell rx-pc-35"><strong>MR No.:</strong> <span id="pMRN"></span></div>
+            <div class="rx-pcell rx-pc-fill"><strong>Name:</strong> <span id="pName"></span></div>
+          </div>
+          <div class="rx-prow">
+            <div class="rx-pcell rx-pc-20"><strong>Age:</strong> <span id="pAge"></span></div>
+            <div class="rx-pcell rx-pc-20"><strong>Gender:</strong> <span id="pGender"></span></div>
+            <div class="rx-pcell rx-pc-fill"><strong>Date:</strong> <span id="pDate"></span> &nbsp; <strong>Time:</strong> <span id="pTime"></span> &nbsp;| Consulted</div>
+          </div>
+          <div class="rx-prow">
+            <div class="rx-pcell rx-pc-35"><strong>Visit No.:</strong> <span id="pVisitNo"></span></div>
+            <div class="rx-pcell rx-pc-fill"><strong>Address:</strong> <span id="pAddress"></span></div>
+          </div>
+          <div class="rx-prow">
+            <div class="rx-pcell rx-pc-35"><strong>City:</strong> <span id="pCity"></span></div>
+            <div class="rx-pcell rx-pc-fill"></div>
+          </div>
+        </div>
+
+        <!-- CLINICAL -->
+        <div class="rx-clinical">
+          <div class="rx-clin-row">
+            <div class="rx-clin-item half"><strong>Complaint(s):</strong><br><span id="pComplaints"></span></div>
+            <div class="rx-clin-item half"><strong>Primary Diagnosis:</strong><br><span id="pPrimaryDx"></span></div>
+          </div>
+          <div class="rx-clin-row" id="pSecDxRow" style="display:none">
+            <div class="rx-clin-item full"><strong>Secondary Diagnosis:</strong><br><span id="pSecondaryDx"></span></div>
+          </div>
+          <div class="rx-clin-row" id="pExamRow" style="display:none">
+            <div class="rx-clin-item full"><strong>Exam Findings:</strong><br><span id="pExamFindings"></span></div>
+          </div>
+          <div class="rx-clin-row" id="pHistRow" style="display:none">
+            <div class="rx-clin-item full"><strong>History:</strong><br><span id="pHistory"></span></div>
+          </div>
+        </div>
+
+        <!-- MEDICINES -->
+        <div class="rx-medicines">
+          <div class="rx-medicines-label">Medicine(s):</div>
+          <div id="pMeds"></div>
+        </div>
+
+        <!-- ADVICE -->
+        <div class="rx-advice-section" id="pAdviceBlock" style="display:none">
+          <strong>Advice:</strong>
+          <p id="pAdvice"></p>
+        </div>
+        <div class="rx-advice-section" id="pFollowBlock" style="display:none">
+          <strong>Follow-up:</strong>
+          <p id="pFollowUp"></p>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="rx-slip-footer">
+          <div>Chandio Gastro &amp; Endoscopy Center &middot; info@chandiogastro.com</div>
+          <div class="rx-court">NOT VALID FOR COURT</div>
+          <div>Page 1 of 1</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="footer-logo-icon">
+        <div class="footer-logo-text">
+          <span class="footer-logo-name">Gastro <strong>SCOPE</strong></span>
+          <span class="footer-logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">Home</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms and condition</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+  (function() {
+    var overlay = document.getElementById('previewOverlay');
+    var medCount = 1;
+
+    function fmtDate(v) {
+      if (!v) return '';
+      var p = v.split('-');
+      if (p.length!==3) return v;
+      var mn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return p[2]+'-'+mn[parseInt(p[1],10)-1]+'-'+p[0];
+    }
+    function fmtTime(v) {
+      if (!v) return '';
+      var parts = v.split(':');
+      var h = parseInt(parts[0],10), ampm = h>=12?'PM':'AM';
+      h = h%12||12;
+      return h+':'+parts[1]+' '+ampm;
+    }
+    function addDur(start, dur) {
+      if (!start||!dur) return '';
+      var d = new Date(start), num = parseInt(dur,10);
+      if (isNaN(num)) return '';
+      var low = dur.toLowerCase();
+      if (low.indexOf('week')!==-1) d.setDate(d.getDate()+num*7);
+      else if (low.indexOf('month')!==-1) d.setMonth(d.getMonth()+num);
+      else d.setDate(d.getDate()+num);
+      var mn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return String(d.getDate()).padStart(2,'0')+'-'+mn[d.getMonth()]+'-'+d.getFullYear();
+    }
+
+    function medEntryHTML(n) {
+      return '<div class="rx-med-entry" data-med="'+n+'">' +
+        '<div class="rx-med-header"><span class="rx-med-num">'+n+'.</span>' +
+        (n>1 ? '<button type="button" class="rx-med-remove" onclick="this.closest(\'.rx-med-entry\').remove()">Remove</button>' : '') +
+        '</div>' +
+        '<div class="rx-row">' +
+          '<div class="rx-field"><label>Type</label><select name="mType">' +
+            '<option value="Tab">Tab</option><option value="Cap">Cap</option><option value="Inj">Inj</option>' +
+            '<option value="Syp">Syp</option><option value="Sachet">Sachet</option><option value="Inf">Inf</option>' +
+            '<option value="Susp">Susp</option><option value="Drops">Drops</option><option value="Supp">Supp</option><option value="Cream">Cream</option>' +
+          '</select></div>' +
+          '<div class="rx-field w2"><label>Brand Name <span class="req">*</span></label><input type="text" name="mBrand" required placeholder="e.g. Risek"></div>' +
+          '<div class="rx-field w2"><label>Generic Name</label><input type="text" name="mGeneric" placeholder="e.g. Omeprazole"></div>' +
+        '</div>' +
+        '<div class="rx-row">' +
+          '<div class="rx-field"><label>Dose</label><input type="text" name="mDose" placeholder="e.g. 40mg"></div>' +
+          '<div class="rx-field"><label>Frequency</label><select name="mFreq">' +
+            '<option value="Once Daily">Once Daily</option><option value="Twice Daily">Twice Daily</option>' +
+            '<option value="Three times a day">Three times a day</option><option value="Four times a day">Four times a day</option>' +
+            '<option value="Immediately">Immediately</option><option value="As needed (PRN)">As needed (PRN)</option>' +
+            '<option value="At bedtime">At bedtime</option><option value="Before meals">Before meals</option>' +
+            '<option value="After meals">After meals</option><option value="STAT">STAT</option>' +
+          '</select></div>' +
+          '<div class="rx-field"><label>Duration</label><input type="text" name="mDuration" placeholder="e.g. 2 weeks"></div>' +
+          '<div class="rx-field"><label>Start Date</label><input type="date" name="mStart"></div>' +
+        '</div>' +
+        '<div class="rx-row">' +
+          '<div class="rx-field full"><label>ہدایات (اردو میں) — Dosage Instructions in Urdu</label>' +
+          '<select name="mUrdu" class="urdu-input">' +
+            '<option value="">— اردو ہدایات منتخب کریں —</option>' +
+            '<option value="ایک گولی روزانہ ایک دفعہ">ایک گولی روزانہ ایک دفعہ</option>' +
+            '<option value="ایک گولی دن میں دو دفعہ (صبح شام)">ایک گولی دن میں دو دفعہ (صبح شام)</option>' +
+            '<option value="ایک گولی دن میں تین دفعہ (صبح دوپہر شام)">ایک گولی دن میں تین دفعہ (صبح دوپہر شام)</option>' +
+            '<option value="ایک گولی دن میں چار دفعہ">ایک گولی دن میں چار دفعہ</option>' +
+            '<option value="ایک گولی صبح ناشتے سے پہلے">ایک گولی صبح ناشتے سے پہلے</option>' +
+            '<option value="ایک گولی رات سونے سے پہلے">ایک گولی رات سونے سے پہلے</option>' +
+            '<option value="ایک گولی کھانے سے پہلے">ایک گولی کھانے سے پہلے</option>' +
+            '<option value="ایک گولی کھانے کے بعد">ایک گولی کھانے کے بعد</option>' +
+            '<option value="ایک کیپسول روزانہ ایک دفعہ">ایک کیپسول روزانہ ایک دفعہ</option>' +
+            '<option value="ایک کیپسول دن میں دو دفعہ">ایک کیپسول دن میں دو دفعہ</option>' +
+            '<option value="ایک انجکشن فوری طور پر">ایک انجکشن فوری طور پر</option>' +
+            '<option value="انجکشن فوری طور پر ایک دن کے لیے">انجکشن فوری طور پر ایک دن کے لیے</option>' +
+            '<option value="انفیوژن فوری طور پر">انفیوژن فوری طور پر</option>' +
+            '<option value="ایک ساشے روزانہ ایک دفعہ">ایک ساشے روزانہ ایک دفعہ</option>' +
+            '<option value="ایک ساشے دن میں دو دفعہ">ایک ساشے دن میں دو دفعہ</option>' +
+            '<option value="ایک چمچ دن میں تین دفعہ">ایک چمچ دن میں تین دفعہ</option>' +
+            '<option value="ایک چمچ دن میں دو دفعہ">ایک چمچ دن میں دو دفعہ</option>' +
+            '<option value="دو چمچ دن میں تین دفعہ">دو چمچ دن میں تین دفعہ</option>' +
+            '<option value="ضرورت کے مطابق">ضرورت کے مطابق</option>' +
+            '<option value="ایک سپازٹری ضرورت کے مطابق">ایک سپازٹری ضرورت کے مطابق</option>' +
+            '<option value="کریم متاثرہ جگہ پر دن میں دو دفعہ لگائیں">کریم متاثرہ جگہ پر دن میں دو دفعہ لگائیں</option>' +
+            '<option value="قطرے ہدایت کے مطابق">قطرے ہدایت کے مطابق</option>' +
+          '</select></div>' +
+        '</div>' +
+      '</div>';
+    }
+
+    document.getElementById('addMedBtn').addEventListener('click', function() {
+      medCount++;
+      var container = document.getElementById('medsContainer');
+      var div = document.createElement('div');
+      div.innerHTML = medEntryHTML(medCount);
+      container.appendChild(div.firstChild);
+    });
+
+    /* ---- Preview ---- */
+    document.getElementById('previewBtn').addEventListener('click', function() {
+      var name = document.getElementById('fPatientName').value.trim();
+      var age = document.getElementById('fAge').value.trim();
+      var vDate = document.getElementById('fVisitDate').value;
+      if (!name) { alert('Please enter the patient name.'); document.getElementById('fPatientName').focus(); return; }
+      if (!age) { alert('Please enter the patient age.'); document.getElementById('fAge').focus(); return; }
+      if (!vDate) { alert('Please enter the visit date.'); document.getElementById('fVisitDate').focus(); return; }
+
+      var entries = document.querySelectorAll('.rx-med-entry');
+      var hasMed = false;
+      entries.forEach(function(e) { if (e.querySelector('[name="mBrand"]').value.trim()) hasMed=true; });
+      if (!hasMed) { alert('Please enter at least one medication.'); return; }
+
+      document.getElementById('pMRN').textContent = document.getElementById('fMRN').value || '—';
+      document.getElementById('pName').textContent = name;
+      document.getElementById('pAge').textContent = age;
+      document.getElementById('pGender').textContent = document.getElementById('fGender').value;
+      document.getElementById('pDate').textContent = fmtDate(vDate);
+      document.getElementById('pTime').textContent = fmtTime(document.getElementById('fVisitTime').value);
+      document.getElementById('pVisitNo').textContent = document.getElementById('fVisitNo').value || '—';
+      document.getElementById('pAddress').textContent = document.getElementById('fAddress').value || '—';
+      document.getElementById('pCity').textContent = document.getElementById('fCity').value || '—';
+
+      document.getElementById('pComplaints').textContent = document.getElementById('fComplaints').value || '—';
+      document.getElementById('pPrimaryDx').textContent = document.getElementById('fPrimaryDx').value || '—';
+
+      var secDx = document.getElementById('fSecondaryDx').value.trim();
+      document.getElementById('pSecDxRow').style.display = secDx ? 'flex' : 'none';
+      if (secDx) document.getElementById('pSecondaryDx').textContent = secDx;
+
+      var exam = document.getElementById('fExamFindings').value.trim();
+      document.getElementById('pExamRow').style.display = exam ? 'flex' : 'none';
+      if (exam) document.getElementById('pExamFindings').textContent = exam;
+
+      var hist = document.getElementById('fHistory').value.trim();
+      document.getElementById('pHistRow').style.display = hist ? 'flex' : 'none';
+      if (hist) document.getElementById('pHistory').textContent = hist;
+
+      /* Medicines */
+      var html = '';
+      var idx = 0;
+      entries.forEach(function(e) {
+        var brand = e.querySelector('[name="mBrand"]').value.trim();
+        if (!brand) return;
+        idx++;
+        var type = e.querySelector('[name="mType"]').value;
+        var generic = e.querySelector('[name="mGeneric"]').value.trim();
+        var dose = e.querySelector('[name="mDose"]').value.trim();
+        var freq = e.querySelector('[name="mFreq"]').value;
+        var dur = e.querySelector('[name="mDuration"]').value.trim();
+        var start = e.querySelector('[name="mStart"]').value;
+        var urdu = e.querySelector('[name="mUrdu"]').value.trim();
+
+        var startF = fmtDate(start);
+        var endF = addDur(start, dur);
+        var dates = '';
+        if (startF && endF) dates = '['+startF+' - '+endF+']';
+        else if (startF) dates = '['+startF+']';
+
+        html += '<div class="rx-med-row">' +
+          '<div class="rx-med-left">' +
+            '<div class="rx-ml-main">' + idx + ' ' + type + ' ' + brand +
+              (generic ? ' <span style="font-weight:400">('+generic+')</span>' : '') +
+              (dose ? ' '+dose : '') + '</div>' +
+            '<div class="rx-ml-detail">for ' + (dur||'—') + ' &nbsp; ' + freq +
+              (dates ? ' &nbsp; <span class="rx-ml-dates">'+dates+'</span>' : '') +
+            '</div>' +
+          '</div>' +
+          (urdu ? '<div class="rx-med-right">'+urdu+'</div>' : '') +
+        '</div>';
+      });
+      document.getElementById('pMeds').innerHTML = html;
+
+      var advice = document.getElementById('fAdvice').value.trim();
+      document.getElementById('pAdviceBlock').style.display = advice ? 'block' : 'none';
+      if (advice) document.getElementById('pAdvice').textContent = advice;
+
+      var followUp = document.getElementById('fFollowUp').value;
+      document.getElementById('pFollowBlock').style.display = followUp ? 'block' : 'none';
+      if (followUp) document.getElementById('pFollowUp').textContent = fmtDate(followUp);
+
+      overlay.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    });
+
+    document.getElementById('closePreview').addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', function(e) { if (e.target===overlay) closeOverlay(); });
+    document.addEventListener('keydown', function(e) { if (e.key==='Escape' && overlay.classList.contains('visible')) closeOverlay(); });
+    document.getElementById('printBtn').addEventListener('click', function() { window.print(); });
+
+    function closeOverlay() { overlay.classList.remove('visible'); document.body.style.overflow=''; }
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gastro SCOPE – Specialists in Gut &amp; Metabolics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================
+       SECTION 1: Header / Navigation
+       ============================================ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <img src="assets/logo-icon.jpeg" alt="" class="logo-icon">
+        <div class="logo-text">
+          <span class="logo-name">Gastro <strong>SCOPE</strong></span>
+          <span class="logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="#" class="nav-link active">Home</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="services/gastroscopy.html">Gastroscopy</a></li>
+              <li><a href="services/colonoscopy.html">Colonoscopy</a></li>
+              <li><a href="services/bowel-cancer-screening.html">Bowel Cancer Screening</a></li>
+              <li><a href="services/open-access-endoscopy.html">Open access endoscopy</a></li>
+              <li><a href="services/consultation-services.html">Consultation services</a></li>
+              <li class="has-submenu">
+                <a href="#">Advanced Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="services/ercp.html">ERCP</a></li>
+                  <li><a href="services/eus.html">EUS</a></li>
+                  <li><a href="services/emr.html">EMR/Removal of Polyps</a></li>
+                </ul>
+              </li>
+              <li class="has-submenu">
+                <a href="#">Bariatric Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="services/gastric-balloon.html">Gastric Balloon</a></li>
+                  <li><a href="services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Obesity Management <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="services/gastric-balloon.html">Gastric Balloon</a></li>
+              <li><a href="services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+            </ul>
+          </li>
+          <li><a href="obesity-insights/index.html" class="nav-link">&ldquo;Obesity Insights&rdquo;</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">For Patients <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="for-patients/symptoms.html">Symptoms</a></li>
+              <li><a href="for-patients/appointment.html">Appointment</a></li>
+              <li><a href="for-patients/practice-locations.html">Practice Locations</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">For Doctor <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="for-doctor/referral-letter.html">Create Referral Letter</a></li>
+              <li><a href="for-doctor/endoscopy-report.html">Create Endoscopy Report</a></li>
+              <li><a href="for-doctor/prescription.html">Create Prescription</a></li>
+            </ul>
+          </li>
+          <li class="nav-search">
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================
+       SECTION 2: Hero / Banner Slider
+       ============================================ -->
+  <section class="hero-section">
+    <div class="hero-slider" id="heroSlider">
+      <div class="hero-slides">
+        <div class="hero-slide active">
+          <img src="https://lh3.googleusercontent.com/sitesv/APaQ0STqQ0sU-mpNuKGTePrZhYS5o8QEnr8pQfVc7z2jwr2uJ9W-E3hSsUJLHfHm83Cru-_DSzGbghaK4QSNt_FNY1TxymiJddVCEhwaZinOs4v4zXuTQdg6V0ZqZwSphQi0SwC_3BtuzMIrghwD6Fti5UYqLw2bBdzEERWfwhG5OS40sZT7qo2wog=w16383" alt="Gastro SCOPE clinic reception">
+        </div>
+        <div class="hero-slide">
+          <img src="https://lh3.googleusercontent.com/sitesv/APaQ0STtqnZqyXuvlVNeEvOeyEmf39A7eGRBhzeqx0wJoGcfOznqB4vmVpclv2YSHj-pC3F-kmtDI9kKT1LT_bgKsZDRxMioV7qy0-pk_yb-Uv-CsvTL4YuAjWYAiYcSpbxRgp382o0IiodqCFYmM-Kpbhcm8ow86QOP9kTyo0djISy-TK3gao1AbXM8=w16383" alt="Gastro SCOPE services">
+        </div>
+        <div class="hero-slide">
+          <img src="https://lh3.googleusercontent.com/sitesv/APaQ0SQOwwVzlQtKI9VJQNucjFvu-l6AwKZUbugeAG999HY0VKen-uPez_PKMxJgLJsC9_nkIHLrcZrnmhrnBi3GHmHtXKBF4lkLqVr4GhZF_As_fNmFi30---1_T_9RgeiAPkwYfCI2jZLIiEU1M2oMVhb6oqw3cElwn1_S9hEo0uFugTfhmpzzGNM5oXE=w16383" alt="Gastro SCOPE team">
+        </div>
+      </div>
+      <button class="slider-arrow slider-prev" id="sliderPrev" aria-label="Previous slide">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="slider-arrow slider-next" id="sliderNext" aria-label="Next slide">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 3: Welcome / About
+       ============================================ -->
+  <section class="welcome-section">
+    <div class="container">
+      <div class="welcome-grid">
+        <aside class="welcome-left">
+          <div class="doctor-photo">
+            <img src="assets/doctor.png" alt="Dr Sajjad Hussain Chandio">
+          </div>
+          <p class="doctor-name">Dr Sajjad Hussain Chandio – MBBS, FRACP</p>
+          <p class="doctor-title">General &amp; Interventional Gastroenterologist</p>
+        </aside>
+        <div class="welcome-right">
+          <h2 class="section-heading">Welcome to Chandio Gastro & Endoscopy Center</h2>
+<p>We are a Gastroenterology and Endoscopy practice dedicated to providing advanced digestive health care.</p>
+
+<p>Dr. Sajjad Hussain Chandio (MBBS, FCPS – Gastroenterology) is our lead Gastroenterologist and Endoscopy Specialist. He is a highly qualified specialist with extensive experience in the diagnosis and management of gastrointestinal diseases. Dr. Sajjad Hussain Chandio is committed to providing high-quality, patient-centered care using modern endoscopic techniques.</p>
+
+<p>He focuses on the prevention, diagnosis, and treatment of digestive system disorders including reflux disease, liver conditions, gastrointestinal infections, and other digestive health issues. His goal is to provide effective and minimally invasive solutions to improve patient health and quality of life. </p>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 4: Our Services
+       ============================================ -->
+  <section class="services-section">
+    <div class="container">
+      <h2 class="services-title">Our Services</h2>
+      <div class="services-bar"></div>
+      <div class="services-grid">
+        <a href="#" class="service-card">
+          <div class="service-img">
+            <img src="https://lh3.googleusercontent.com/sitesv/APaQ0SSfNiy4ofmm5HqAGJYl--evqrRESN4knc6Gwk_J9ESVNaeQToz-VMOibIwsMaifTJukaRxKwXOSRA6tTLJK9z0A-fBGc1Yma_YFsKp_7TaX6Ye-ORRcskHfuBrWeScfhcRoN396ohyRFZTM1MeTT8SmcA1aLlw40Rafeoed9p2NipdW7T7Mh92ZgDyKoRFnqemFLbYucK3OHFfCbUmAQGRAX5vufaE4VGesdCo=w1280" alt="Open access endoscopy">
+          </div>
+          <p class="service-label">Open access endoscopy</p>
+        </a>
+        <a href="#" class="service-card">
+          <div class="service-img">
+            <img src="https://lh3.googleusercontent.com/sitesv/APaQ0SRRWzYx2GOFSVhYnMgZAdvJj3Thd7DKJIRKiADWqY8SMgolSLu9xwPYCxRWFsSYcRT2vNxCuYLcd7U316BemyXpGDwpehsVrjjNM1llPFW7LQEef69gshULSVgf4UGeXXGKgDYuq3_-4LIsPUZ8x8RM0CEBSRzjLwCWN2P_mnTUXEGIjPxcAlv960D0ysa_0gSKW7aOuU5qnSF9xBAjR2bHmD3pO1ubfxghhiQ=w1280" alt="Bowel cancer screening">
+          </div>
+          <p class="service-label">Bowel cancer screening</p>
+        </a>
+        <a href="#" class="service-card">
+          <div class="service-img">
+            <img src="https://lh3.googleusercontent.com/sitesv/APaQ0SSLYX-AnuFV0hV7ISJXG7KsQ8hv7p7YSAKiHELgL0lPGioWCM5LNuA7z9CV45y8yUAxWpGlhFbZwAYr3SZv8AxG7Oqz4CT5M9gTWaHmIseSGrjnqZbbh1r2SKG11CN3b9RMq5mbHVG5I0f4fZTBhKVV0vdhrlUBISbJw_YQ06pierJbwuE1u1ZYdERJIP3hJrKPPd01GdEX5iaFM5dvW5ldtfX8ddO9yMuu_gk=w1280" alt="EMR/Removal of polyps">
+          </div>
+          <p class="service-label">EMR/Removal of polyps</p>
+        </a>
+        <a href="#" class="service-card">
+          <div class="service-img">
+            <img src="https://www.shutterstock.com/image-photo/lets-set-appointment-next-week-600nw-2167142165.jpg" alt="Consultation services">
+          </div>
+          <p class="service-label">Consultation services</p>
+        </a>
+        <a href="#" class="service-card">
+          <div class="service-img">
+            <img src="https://lh3.googleusercontent.com/sitesv/APaQ0STBOHbpaehg_40RgfhXveQ07jPDwiKHxaQpZ4o104MNTx-K341K9ftTxVeJONIl8AEZWsS4mV92_ErhK1UV19r-EUkbYQa0mf5QxEr5GuecO3sG_f4LSy9mMbYIIU-FOC1J1jhufqJv90WQWS2amUZGSzq36X9D5DMWZUlZJkxxonrECoBaz4hqjaagoKzYXf1r5Vu5Hb3nx41JJoIyGljC8ANYNmy1e37bUbo=w1280" alt="Gastric balloon">
+          </div>
+          <p class="service-label">Gastric balloon</p>
+        </a>
+        <a href="#" class="service-card">
+          <div class="service-img">
+            <img src="https://lh3.googleusercontent.com/sitesv/APaQ0SRcR9xCJyETbkKw0CDcfcgR2Ga90dMcPuuyv1cUpu-IyD5kTfjPFU_fFH68BMiqwCej3ZAfT_hqmY2-pGb0LsGldgs2wvaWvm30pPgjh1LVsaMy7FEA5UWuyYviPo6peiAg9cpzJ_ujPoo-z3W8wToVvlFYcvzpekeRIXfIb7mj4DHf10LwTR8ExWp1DUtdHWvqoW5OixNsaKeP0NIaHu6U60-2Rese1Edw=w1280" alt="ERCP">
+          </div>
+          <p class="service-label">ERCP</p>
+        </a>
+        <a href="#" class="service-card">
+          <div class="service-img">
+            <img src="https://lh3.googleusercontent.com/sitesv/APaQ0SSBoDhfga6lJjhDpk_TWkC8ZMMm8kPKwGrcU5pt-EF0z0TvwklGLqpo2YGQfwKOqgGSTTpPb-TDh-e6wq323KdouGBv0ut7mr1hNwg0ZMeRWVJ3t38maIR4aJZClYm3pUEC8ro3p1v0E_w9VZm0983ITKVOqTiCxFrLKr0-gBCkut_FzOnAp66OlkqUHzD9czH5Xa800QIa6pruSRJg7xsLIKXWc21dC4o1o1A=w1280" alt="EUS">
+          </div>
+          <p class="service-label">EUS</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 5: Our Locations
+       ============================================ -->
+<section class="locations-section">
+  <div class="container">
+    <h2 class="section-heading locations-title">Our Locations</h2>
+
+    <div class="locations-grid">
+
+      <!-- Consultation -->
+      <div class="locations-col">
+        <h3 class="locations-col-title">For Consultation</h3>
+        <ul class="location-list">
+
+          <li>
+            <strong>Al-Suffah Hospital</strong><br>
+            Near Gate No. 3,<br>
+            Holy Family Hospital,<br>
+            Rawalpindi
+          </li>
+
+          <li>
+            <strong>Nazeer Begum Memorial Hospital</strong><br>
+            Behind Phase 8,<br>
+            Bahria Town,<br>
+            Rawalpindi
+          </li>
+
+          <li>
+            <strong>Jinnah Hospital</strong><br>
+            Scheme 1 Road,<br>
+            Gujar Khan
+          </li>
+
+          <li>
+            <strong>Mohammed Medical Complex</strong><br>
+            Main Road,<br>
+            Daulatala
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- Endoscopy -->
+      <div class="locations-col locations-col-right">
+        <h3 class="locations-col-title">For Endoscopic Procedures</h3>
+        <ul class="location-list">
+
+          <li>
+            <strong>Al-Suffah Hospital</strong><br>
+            Near Gate No. 3,<br>
+            Holy Family Hospital,<br>
+            Rawalpindi
+          </li>
+
+          <li>
+            <strong>Rawalpindi International Hospital</strong><br>
+            Rehmanabad,<br>
+            Rawalpindi
+          </li>
+
+          <li>
+            <strong>Jinnah Hospital</strong><br>
+            Scheme 1 Road,<br>
+            Gujar Khan
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- ============================================
+       SECTION 6: Request an Appointment
+       ============================================ -->
+  <section class="appointment-section" id="appointment">
+    <div class="container">
+      <div class="appointment-grid">
+        <div class="appointment-info">
+          <h2 class="section-heading">Request an Appointment</h2>
+          <p>Please submit the form and one of our team members will be in touch with you shortly.</p>
+          <p>Alternatively you can call us at:</p>
+          <a href="tel:0735222900" class="phone-link">07 35222900</a>
+        </div>
+        <div class="appointment-form">
+          <form id="appointmentForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">Name <span class="required">*</span></label>
+                <input type="text" id="firstName" name="firstName" required>
+                <span class="field-hint">First Name</span>
+              </div>
+              <div class="form-group">
+                <label for="lastName">&nbsp;</label>
+                <input type="text" id="lastName" name="lastName" required>
+                <span class="field-hint">Last Name</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required>
+                <span class="field-hint">example@example.com</span>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number <span class="required red">*</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="(000) 000-0000" required>
+                <span class="field-hint">Please enter a valid phone number.</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group form-group-full">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4"></textarea>
+              </div>
+            </div>
+            <div class="form-row">
+              <button type="submit" class="submit-btn">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 7: Embedded Map
+       ============================================ -->
+  <section class="map-section" id="contact">
+    <div class="map-container">
+     
+      <iframe
+        src="https://www.google.com/maps/d/embed?mid=1CriHouovUzJKeslL6u-l86SCQ133oc0&ehbc=2E312F&noprof=1"
+        width="100%"
+        height="380"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        title="Gastro Scope Locations">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 8: Footer
+       ============================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="assets/logo-icon.jpeg" alt="" class="footer-logo-icon">
+        <div class="footer-logo-text">
+          <span class="footer-logo-name">Gastro <strong>SCOPE</strong></span>
+          <span class="footer-logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <a href="#">Home</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms and condition</a>
+      </nav>
+      
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

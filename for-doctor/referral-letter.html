@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Referral Letter – Chandio Gastro &amp; Endoscopy Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* ---- Referral Letter Template Styles ---- */
+
+    .rl-page-wrap {
+      background: #eaeaea;
+      padding: 30px 0 60px;
+    }
+
+    /* == FORM PANEL == */
+    .rl-form-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .rl-form-section h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      color: #0e7c86;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .rl-form-section .rl-subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 28px;
+    }
+
+    .rl-fieldset {
+      border: 1px solid #d0d0d0;
+      border-radius: 4px;
+      padding: 22px 20px 14px;
+      margin-bottom: 20px;
+      background: #fff;
+    }
+
+    .rl-fieldset legend {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      color: #0e7c86;
+      font-weight: 700;
+      padding: 0 8px;
+    }
+
+    .rl-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .rl-row:last-child { margin-bottom: 0; }
+
+    .rl-field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rl-field.full { flex: 0 0 100%; }
+
+    .rl-field label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .rl-field label .req { color: #c0392b; }
+
+    .rl-field input,
+    .rl-field textarea,
+    .rl-field select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 13.5px;
+      font-family: 'Open Sans', Arial, sans-serif;
+      color: #333;
+    }
+
+    .rl-field input:focus,
+    .rl-field textarea:focus,
+    .rl-field select:focus {
+      border-color: #0e7c86;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(14,124,134,0.12);
+    }
+
+    .rl-field select { appearance: auto; }
+
+    .rl-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .rl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 11px 28px;
+      font-size: 14px;
+      font-family: 'Open Sans', sans-serif;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .rl-btn-primary {
+      background: #0e7c86;
+      color: #fff;
+    }
+
+    .rl-btn-primary:hover { background: #095a62; }
+
+    .rl-btn-secondary {
+      background: #fff;
+      color: #666;
+      border: 1px solid #ccc;
+    }
+
+    .rl-btn-secondary:hover {
+      background: #f5f5f5;
+      border-color: #999;
+    }
+
+    /* == PREVIEW OVERLAY == */
+    .rl-preview-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.55);
+      overflow-y: auto;
+      padding: 30px 20px;
+    }
+
+    .rl-preview-overlay.visible { display: flex; justify-content: center; align-items: flex-start; }
+
+    .rl-preview-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 780px;
+    }
+
+    .rl-preview-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .rl-toolbar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-family: 'Open Sans', sans-serif;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .rl-toolbar-btn.print-btn {
+      background: #0e7c86;
+      color: #fff;
+    }
+
+    .rl-toolbar-btn.print-btn:hover { background: #095a62; }
+
+    .rl-toolbar-btn.close-btn {
+      background: #fff;
+      color: #444;
+      border: 1px solid #ccc;
+    }
+
+    .rl-toolbar-btn.close-btn:hover { background: #f0f0f0; }
+
+    /* == THE LETTER TEMPLATE == */
+    .rl-letter {
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.18);
+      font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+      font-size: 11.5px;
+      color: #222;
+      line-height: 1.55;
+      position: relative;
+      /* A4-ish proportions */
+      min-height: 1050px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rl-letter-body {
+      display: flex;
+      flex: 1;
+    }
+
+    /* -- Sidebar -- */
+    .rl-sidebar {
+      width: 180px;
+      flex-shrink: 0;
+      background: #0e7c86;
+      color: #fff;
+      padding: 28px 14px 20px;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .rl-sidebar h4 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #b2e6ec;
+      margin-bottom: 6px;
+      margin-top: 18px;
+      text-transform: none;
+    }
+
+    .rl-sidebar h4:first-child { margin-top: 0; }
+
+    .rl-sidebar p,
+    .rl-sidebar li {
+      font-size: 9.5px;
+      line-height: 1.45;
+      margin-bottom: 2px;
+      color: #dff5f7;
+    }
+
+    .rl-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .rl-sidebar ul li::before {
+      content: "- ";
+    }
+
+    .rl-sidebar .rl-sidebar-contact { margin-top: 18px; }
+
+    .rl-sidebar .rl-sidebar-contact p {
+      margin-bottom: 1px;
+      word-break: break-all;
+    }
+
+    /* -- Main Content -- */
+    .rl-main {
+      flex: 1;
+      padding: 24px 32px 20px 28px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rl-logo-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 18px;
+    }
+
+    .rl-logo-row img {
+      height: 52px;
+      width: auto;
+    }
+
+    .rl-logo-placeholder {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rl-logo-placeholder .rl-logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .rl-logo-placeholder .rl-logo-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 16px;
+      color: #0e7c86;
+      line-height: 1.15;
+    }
+
+    .rl-logo-placeholder .rl-logo-text strong {
+      font-weight: 700;
+    }
+
+    .rl-logo-placeholder .rl-logo-sub {
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 8px;
+      color: #666;
+      letter-spacing: 0.3px;
+    }
+
+    .rl-patient-block {
+      margin-bottom: 18px;
+    }
+
+    .rl-patient-block p {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .rl-patient-block strong {
+      color: #0e7c86;
+    }
+
+    .rl-dear {
+      margin-bottom: 14px;
+      font-size: 11.5px;
+    }
+
+    .rl-body-text {
+      flex: 1;
+      font-size: 11.5px;
+      line-height: 1.65;
+      margin-bottom: 18px;
+      white-space: pre-wrap;
+    }
+
+    .rl-closing-text {
+      font-size: 11.5px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      color: #555;
+    }
+
+    .rl-signature {
+      margin-bottom: 10px;
+    }
+
+    .rl-signature p {
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .rl-signature .rl-sig-name {
+      font-weight: 700;
+      color: #0e7c86;
+      font-size: 12px;
+    }
+
+    .rl-signature .rl-sig-qual {
+      font-size: 10.5px;
+      color: #444;
+    }
+
+    .rl-signature .rl-sig-title {
+      font-size: 10.5px;
+      color: #444;
+    }
+
+    .rl-esign {
+      font-size: 10px;
+      color: #888;
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    /* -- Footer Bar -- */
+    .rl-footer-bar {
+      background: #0e7c86;
+      color: #fff;
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 9px;
+      line-height: 1.55;
+    }
+
+    .rl-footer-bar .rl-footer-title {
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 0.4px;
+      margin-bottom: 2px;
+    }
+
+    /* == PRINT == */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    @media print {
+      html, body { margin:0; padding:0; width:210mm; height:297mm; }
+      body * { visibility:hidden; }
+
+      .rl-preview-overlay,
+      .rl-preview-overlay * { visibility:visible; }
+
+      .rl-preview-overlay {
+        display:flex!important; position:static;
+        background:none; padding:0; margin:0;
+        width:100%; height:100%;
+      }
+
+      .rl-preview-toolbar { display:none!important; }
+
+      .rl-preview-wrapper { max-width:100%; width:100%; height:100%; margin:0; }
+
+      .rl-letter {
+        box-shadow:none; width:100%;
+        min-height:100vh; height:100vh;
+        display:flex; flex-direction:column;
+      }
+
+      .rl-letter-body { flex:1; }
+
+      .rl-sidebar {
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+      }
+
+      .rl-footer-bar {
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+      }
+
+      .site-header, .site-footer,
+      .rl-form-section, .rl-page-wrap { display:none!important; }
+    }
+
+    /* == RESPONSIVE == */
+    @media (max-width: 600px) {
+      .rl-row { flex-direction: column; gap: 10px; }
+      .rl-letter-body { flex-direction: column; }
+      .rl-sidebar { width: 100%; padding: 16px; }
+      .rl-main { padding: 16px; }
+      .rl-preview-overlay { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="logo-icon">
+        <div class="logo-text">
+          <span class="logo-name">Gastro <strong>SCOPE</strong></span>
+          <span class="logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../services/gastroscopy.html">Gastroscopy</a></li>
+              <li><a href="../services/colonoscopy.html">Colonoscopy</a></li>
+              <li><a href="../services/bowel-cancer-screening.html">Bowel Cancer Screening</a></li>
+              <li><a href="../services/open-access-endoscopy.html">Open access endoscopy</a></li>
+              <li><a href="../services/consultation-services.html">Consultation services</a></li>
+              <li class="has-submenu">
+                <a href="#">Advanced Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="../services/ercp.html">ERCP</a></li>
+                  <li><a href="../services/eus.html">EUS</a></li>
+                  <li><a href="../services/emr.html">EMR/Removal of Polyps</a></li>
+                </ul>
+              </li>
+              <li class="has-submenu">
+                <a href="#">Bariatric Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="../services/gastric-balloon.html">Gastric Balloon</a></li>
+                  <li><a href="../services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Obesity Management <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../services/gastric-balloon.html">Gastric Balloon</a></li>
+              <li><a href="../services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+            </ul>
+          </li>
+          <li><a href="../obesity-insights/index.html" class="nav-link">&ldquo;Obesity Insights&rdquo;</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">For Patients <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../for-patients/symptoms.html">Symptoms</a></li>
+              <li><a href="../for-patients/appointment.html">Appointment</a></li>
+              <li><a href="../for-patients/practice-locations.html">Practice Locations</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link active">For Doctor <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="referral-letter.html">Create Referral Letter</a></li>
+              <li><a href="endoscopy-report.html">Create Endoscopy Report</a></li>
+              <li><a href="prescription.html">Create Prescription</a></li>
+            </ul>
+          </li>
+          <li class="nav-search">
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========== FORM INPUT ========== -->
+  <div class="rl-page-wrap">
+    <div class="rl-form-section">
+      <h1>Create Referral Letter</h1>
+      <p class="rl-subtitle">Fill in the details below, then click <strong>Preview Letter</strong> to see the formatted referral letter.</p>
+
+      <form id="rlForm" autocomplete="off">
+
+        <fieldset class="rl-fieldset">
+          <legend>Patient Details</legend>
+          <div class="rl-row">
+            <div class="rl-field">
+              <label for="rlTitle">Title</label>
+              <select id="rlTitle">
+                <option value="Mr">Mr</option>
+                <option value="Mrs">Mrs</option>
+                <option value="Ms">Ms</option>
+                <option value="Miss">Miss</option>
+                <option value="Master">Master</option>
+              </select>
+            </div>
+            <div class="rl-field" style="flex:2">
+              <label for="rlPatientName">Patient Name <span class="req">*</span></label>
+              <input type="text" id="rlPatientName" required placeholder="e.g. Irfan Naseem">
+            </div>
+          </div>
+          <div class="rl-row">
+            <div class="rl-field">
+              <label for="rlDOB">Date of Birth <span class="req">*</span></label>
+              <input type="date" id="rlDOB" required>
+            </div>
+            <div class="rl-field">
+              <label for="rlMobile">Mobile</label>
+              <input type="tel" id="rlMobile" placeholder="e.g. +923001234567">
+            </div>
+          </div>
+          <div class="rl-row">
+            <div class="rl-field full">
+              <label for="rlAddress">Address</label>
+              <input type="text" id="rlAddress" placeholder="e.g. House 12, Street 5, Rawalpindi Punjab 46000">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="rl-fieldset">
+          <legend>Referral Details</legend>
+          <div class="rl-row">
+            <div class="rl-field">
+              <label for="rlDearDr">Addressed To (Dear Dr)</label>
+              <input type="text" id="rlDearDr" placeholder="Leave blank for general referral">
+            </div>
+          </div>
+          <div class="rl-row">
+            <div class="rl-field full">
+              <label for="rlBody">Referral Body <span class="req">*</span></label>
+              <textarea id="rlBody" rows="7" required placeholder="e.g. Please see Mr Irfan Naseem for consideration of an upper GI endoscopy. He has been experiencing upper abdominal pain and intermittent black stools/melaena. His medical history is significant for psoriatic arthritis and T2DM..."></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="rl-actions">
+          <button type="button" class="rl-btn rl-btn-primary" id="previewBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Preview Letter
+          </button>
+          <button type="reset" class="rl-btn rl-btn-secondary">Clear Form</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ========== PREVIEW OVERLAY ========== -->
+  <div class="rl-preview-overlay" id="previewOverlay">
+    <div class="rl-preview-wrapper">
+
+      <div class="rl-preview-toolbar">
+        <button class="rl-toolbar-btn print-btn" id="printBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print / Download PDF
+        </button>
+        <button class="rl-toolbar-btn close-btn" id="closePreview">
+          ✕ Close
+        </button>
+      </div>
+
+      <!-- The Letter -->
+      <div class="rl-letter" id="letterTemplate">
+
+        <div class="rl-letter-body">
+
+          <!-- LEFT SIDEBAR -->
+          <div class="rl-sidebar">
+            <h4>Our Locations</h4>
+            <p>Al-Suffah Hospital,<br>Rawalpindi</p>
+            <p>Rawalpindi International Hospital</p>
+            <p>Jinnah Hospital,<br>Gujar Khan</p>
+            <p>Mohammed Medical Complex, Daulatala</p>
+
+            <h4>Our Services</h4>
+            <ul>
+              <li>Clinical gastroenterology</li>
+              <li>Hepatology</li>
+              <li>Gastroscopy</li>
+              <li>Colonoscopy</li>
+              <li>Advanced endoscopy</li>
+              <li>Removal of large polyps</li>
+              <li>Endoscopic Ultrasound</li>
+              <li>ERCP</li>
+            </ul>
+
+            <h4>Bariatric endoscopy</h4>
+            <ul>
+              <li>Gastric Balloon placement</li>
+              <li>Gastric Outlet Reduction / TORe</li>
+            </ul>
+
+            <div class="rl-sidebar-contact">
+              <h4>Contact us</h4>
+              <p>Phone: 0300-1234567</p>
+              <p>info@chandiogastro.com</p>
+            </div>
+          </div>
+
+          <!-- RIGHT CONTENT -->
+          <div class="rl-main">
+
+            <div class="rl-logo-row">
+              <div class="rl-logo-placeholder">
+                <img src="../assets/logo-icon.jpeg" alt="" class="rl-logo-icon">
+                <div>
+                  <span class="rl-logo-text">Chandio  Gastro & Endoscopy Center</span>
+                  <span class="rl-logo-sub">Specialists in Gut &amp; Metabolics</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="rl-patient-block">
+              <p><strong>Patient's Name:</strong> <span id="prevName"></span></p>
+              <p><strong>DOB:</strong> <span id="prevDOB"></span></p>
+              <p><strong>Address:</strong> <span id="prevAddress"></span></p>
+              <p><strong>Mobile:</strong> <span id="prevMobile"></span></p>
+            </div>
+
+            <p class="rl-dear" id="prevDear">Dear Dr</p>
+
+            <div class="rl-body-text" id="prevBody"></div>
+
+            <p class="rl-closing-text">If you have any questions or concerns, feel free to contact me.</p>
+
+            <p style="margin-bottom: 14px;">Sincerely,</p>
+
+            <div class="rl-signature">
+              <p class="rl-sig-name">Dr Sajjad Hussain Chandio</p>
+              <p class="rl-sig-qual">MBBS, FCPS</p>
+              <p class="rl-sig-title">General &amp; Interventional Gastroenterologist</p>
+            </div>
+
+            <p class="rl-esign" id="prevEsign"></p>
+
+          </div>
+        </div>
+
+        <!-- FOOTER BAR -->
+        <div class="rl-footer-bar">
+          <div class="rl-footer-title">Specialists in Gastrointestinal Disorders &amp; Endoscopy</div>
+          <div>Al-Suffah Hospital &middot; Rawalpindi International Hospital &middot; Jinnah Hospital, Gujar Khan</div>
+          <div>Phone: 0300-1234567 &nbsp;|&nbsp; Email: info@chandiogastro.com</div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="footer-logo-icon">
+        <div class="footer-logo-text">
+          <span class="footer-logo-name">Chandio Gastro & Endoscopy Center</span>
+          <span class="footer-logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">Home</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms and condition</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+    (function() {
+      var form = document.getElementById('rlForm');
+      var overlay = document.getElementById('previewOverlay');
+      var previewBtn = document.getElementById('previewBtn');
+      var printBtn = document.getElementById('printBtn');
+      var closeBtn = document.getElementById('closePreview');
+
+      function formatDate(dateStr) {
+        if (!dateStr) return '';
+        var parts = dateStr.split('-');
+        if (parts.length !== 3) return dateStr;
+        return parts[2] + '/' + parts[1] + '/' + parts[0];
+      }
+
+      function getTodayFormatted() {
+        var d = new Date();
+        var dd = String(d.getDate()).padStart(2, '0');
+        var mm = String(d.getMonth() + 1).padStart(2, '0');
+        var yyyy = d.getFullYear();
+        return dd + '/' + mm + '/' + yyyy;
+      }
+
+      previewBtn.addEventListener('click', function() {
+        var name = document.getElementById('rlPatientName').value.trim();
+        var dob = document.getElementById('rlDOB').value;
+        var body = document.getElementById('rlBody').value.trim();
+
+        if (!name) { alert('Please enter the patient name.'); document.getElementById('rlPatientName').focus(); return; }
+        if (!dob) { alert('Please enter the date of birth.'); document.getElementById('rlDOB').focus(); return; }
+        if (!body) { alert('Please enter the referral body text.'); document.getElementById('rlBody').focus(); return; }
+
+        var title = document.getElementById('rlTitle').value;
+        var address = document.getElementById('rlAddress').value.trim();
+        var mobile = document.getElementById('rlMobile').value.trim();
+        var dearDr = document.getElementById('rlDearDr').value.trim();
+
+        document.getElementById('prevName').textContent = title + ' ' + name;
+        document.getElementById('prevDOB').textContent = formatDate(dob);
+        document.getElementById('prevAddress').textContent = address || '—';
+        document.getElementById('prevMobile').textContent = mobile || '—';
+        document.getElementById('prevDear').textContent = dearDr ? 'Dear Dr ' + dearDr : 'Dear Dr';
+        document.getElementById('prevBody').textContent = body;
+        document.getElementById('prevEsign').textContent = 'Electronically Signed On: ' + getTodayFormatted();
+
+        overlay.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+      });
+
+      closeBtn.addEventListener('click', function() {
+        overlay.classList.remove('visible');
+        document.body.style.overflow = '';
+      });
+
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+          overlay.classList.remove('visible');
+          document.body.style.overflow = '';
+        }
+      });
+
+      printBtn.addEventListener('click', function() {
+        window.print();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('visible')) {
+          overlay.classList.remove('visible');
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

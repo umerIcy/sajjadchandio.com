@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bowel Cancer Screening – Gastro SCOPE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="logo-icon">
+        <div class="logo-text">
+          <span class="logo-name">Gastro <strong>SCOPE</strong></span>
+          <span class="logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link active">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="gastroscopy.html">Gastroscopy</a></li>
+              <li><a href="colonoscopy.html">Colonoscopy</a></li>
+              <li><a href="bowel-cancer-screening.html">Bowel Cancer Screening</a></li>
+              <li><a href="open-access-endoscopy.html">Open access endoscopy</a></li>
+              <li><a href="consultation-services.html">Consultation services</a></li>
+              <li class="has-submenu">
+                <a href="#">Advanced Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="ercp.html">ERCP</a></li>
+                  <li><a href="eus.html">EUS</a></li>
+                  <li><a href="emr.html">EMR/Removal of Polyps</a></li>
+                </ul>
+              </li>
+              <li class="has-submenu">
+                <a href="#">Bariatric Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="gastric-balloon.html">Gastric Balloon</a></li>
+                  <li><a href="gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Obesity Management <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="gastric-balloon.html">Gastric Balloon</a></li>
+              <li><a href="gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+            </ul>
+          </li>
+          <li><a href="../obesity-insights/index.html" class="nav-link">&ldquo;Obesity Insights&rdquo;</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">For Patients <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../for-patients/symptoms.html">Symptoms</a></li>
+              <li><a href="../for-patients/appointment.html">Appointment</a></li>
+              <li><a href="../for-patients/practice-locations.html">Practice Locations</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">For Doctor <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../for-doctor/referral-letter.html">Create Referral Letter</a></li>
+              <li><a href="../for-doctor/endoscopy-report.html">Create Endoscopy Report</a></li>
+              <li><a href="../for-doctor/prescription.html">Create Prescription</a></li>
+            </ul>
+          </li>
+          <li class="nav-search">
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="service-hero">
+    <img src="https://cdn.prod.website-files.com/68a4198525bcfbc38683aea0/68b54a3af97d64a5b03373bb_at-home-colorectal-screening.jpeg" alt="Bowel cancer screening">
+  </section>
+
+  <!-- Table of Contents -->
+  <section class="service-toc">
+    <div class="container">
+      <a href="#what">What is bowel cancer?</a>
+      <a href="#why">Why is screening important?</a>
+      <a href="#who">Who should be screened?</a>
+      <a href="#how">How is screening done?</a>
+      <a href="#polyps">What happens if polyps are found?</a>
+      <a href="#reduce">Reducing your risk</a>
+    </div>
+  </section>
+
+  <!-- What is bowel cancer? -->
+  <section class="service-content" id="what">
+    <div class="container">
+      <h2 class="content-heading">What is bowel cancer?</h2>
+      <p>Bowel cancer (also called colorectal cancer) is the third most common cancer worldwide. It develops from the inner lining of the bowel and usually begins as small growths called polyps. Not all polyps become cancerous, but removing them early can prevent cancer from developing.</p>
+      <p>Bowel cancer often develops without any early symptoms, which is why screening is so important.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Why is screening important? -->
+  <section class="service-content" id="why">
+    <div class="container">
+      <h2 class="content-heading">Why is screening important?</h2>
+      <p>Bowel cancer screening can detect cancer at an early stage, when treatment is most effective. In many cases, screening can actually prevent cancer by finding and removing polyps before they become cancerous.</p>
+      <p><span class="underline-text">When detected early, bowel cancer has a survival rate of over 90%.</span></p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Who should be screened? -->
+  <section class="service-content" id="who">
+    <div class="container">
+      <h2 class="content-heading">Who should be screened?</h2>
+      <p>Average risk individuals should begin screening at age 45&ndash;50. Higher risk groups may need earlier and more frequent screening.</p>
+      <p>You may be at higher risk if you have</p>
+      <ul class="content-list">
+        <li>A family history of bowel cancer or polyps</li>
+        <li>A personal history of inflammatory bowel disease (Crohn&rsquo;s disease or ulcerative colitis)</li>
+        <li>Previous polyps</li>
+        <li>Hereditary conditions such as Lynch syndrome or Familial Adenomatous Polyposis (FAP)</li>
+      </ul>
+      <p>Your doctor will advise on the most appropriate screening schedule based on your individual risk factors.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- How is screening done? -->
+  <section class="service-content" id="how">
+    <div class="container">
+      <h2 class="content-heading">How is screening done?</h2>
+      <p><strong>Faecal immunochemical test (FIT)</strong> is a simple stool test that detects hidden blood. It is done at home and is recommended every 2 years for average risk individuals.</p>
+      <p><strong>Colonoscopy</strong> is a direct examination of the entire colon and is considered the gold standard for bowel cancer screening. It allows detection and removal of polyps in the same procedure.</p>
+      <p>Your doctor will recommend the appropriate screening method based on your risk factors.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- What happens if polyps are found? -->
+  <section class="service-content" id="polyps">
+    <div class="container">
+      <h2 class="content-heading">What happens if polyps are found?</h2>
+      <p>Most polyps are removed during the colonoscopy using specialised instruments. This is called a polypectomy and is usually painless.</p>
+      <p>The removed tissue is sent to a laboratory for analysis. Based on the type and size of polyps found, your doctor will recommend a surveillance schedule for future colonoscopies.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Reducing your risk -->
+  <section class="service-content" id="reduce">
+    <div class="container">
+      <h2 class="content-heading">Reducing your risk</h2>
+      <p>While some risk factors for bowel cancer cannot be changed, there are many lifestyle measures you can take to reduce your risk.</p>
+      <ul class="content-list">
+        <li>Maintain a healthy weight</li>
+        <li>Exercise regularly</li>
+        <li>Eat a diet rich in fruits, vegetables and fibre</li>
+        <li>Limit red and processed meat</li>
+        <li>Avoid smoking</li>
+        <li>Limit alcohol consumption</li>
+        <li>Attend regular screening as recommended by your doctor</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="footer-logo-icon">
+        <div class="footer-logo-text">
+          <span class="footer-logo-name">Gastro <strong>SCOPE</strong></span>
+          <span class="footer-logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <a href="../index.html">Home</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms and condition</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

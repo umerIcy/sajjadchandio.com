@@ -78,25 +78,24 @@
     /* Header: 3 columns */
     .rx-slip-header { display:flex; align-items:stretch; padding:16px 24px 12px; border-bottom:2px solid #333; }
     .rx-hdr-left { flex:1; }
-    .rx-hdr-center { flex:0 0 80px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 10px; }
+    .rx-hdr-center { flex:0 0 160px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 16px; }
     .rx-hdr-right { flex:1; text-align:right; direction:rtl; }
 
-    .rx-hdr-left .rx-doc-name { font-size:15px; font-weight:700; color:#222; margin-bottom:1px; }
-    .rx-hdr-left .rx-doc-qual { font-size:9.5px; color:#444; }
-    .rx-hdr-left .rx-doc-title { font-size:9.5px; color:#444; }
-    .rx-hdr-left .rx-doc-addr { font-size:8px; color:#666; line-height:1.4; margin-top:3px; }
+    .rx-hdr-left .rx-doc-name { font-size:20px; font-weight:700; color:#222; margin-bottom:3px; }
+    .rx-hdr-left .rx-doc-qual { font-size:12px; color:#444; line-height:1.45; font-weight: 200; }
+    .rx-hdr-left .rx-doc-title { font-size:12px; color:#444; line-height:1.45; }
 
     .rx-hdr-center img {
-  height: auto;
-  width: 100px;
-  border-radius: 50%;
-  object-fit: fill;
-}
+      height: 120px;
+      width: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
     .rx-hdr-center .rx-logo-label { font-family:'Playfair Display',Georgia,serif; font-size:10px; color:#0e7c86; line-height:1.2; margin-top:3px; white-space:nowrap; }
     .rx-hdr-center .rx-logo-sub { font-size:6.5px; color:#888; display:block; white-space:nowrap; }
 
-    .rx-hdr-right .rx-ur-name { font-family:'Noto Nastaliq Urdu',sans-serif; font-size:18px; font-weight:700; color:#222; line-height:1.8; }
-    .rx-hdr-right .rx-ur-line { font-family:'Noto Nastaliq Urdu',sans-serif; font-size:11px; color:#444; line-height:1.9; }
+    .rx-hdr-right .rx-ur-name { font-family:'Noto Nastaliq Urdu',sans-serif; font-size:24px; font-weight:700; color:#222; line-height:1.8; }
+    .rx-hdr-right .rx-ur-line { font-family:'Noto Nastaliq Urdu',sans-serif; font-size:14px; color:#444; line-height:1.9; }
 
     /* Patient Grid */
     .rx-pgrid { border-bottom:1px solid #bbb; font-size:10px; }
@@ -229,6 +228,8 @@
             <ul class="dropdown">
               <li><a href="referral-letter.html">Create Referral Letter</a></li>
               <li><a href="endoscopy-report.html">Create Endoscopy Report</a></li>
+              <li><a href="sigmoidoscopy-report.html">Create Sigmoidoscopy Report</a></li>
+              <li><a href="colonoscopy-report.html">Create Colonoscopy Report</a></li>
               <li><a href="prescription.html">Create Prescription</a></li>
             </ul>
           </li>
@@ -483,19 +484,16 @@
         <div class="rx-slip-header">
           <div class="rx-hdr-left">
             <div class="rx-doc-name">Dr Sajjad Hussain Chandio</div>
-            <div class="rx-doc-qual">MBBS, FCPS (Gastroenterology)</div>
-            <div class="rx-doc-title">General &amp; Interventional Gastroenterologist</div>
-            <div class="rx-doc-addr">Al-Suffah Hospital, Rawalpindi<br>Mohammed Medical Complex, Daulatala<br>Jinnah Hospital, Gujar Khan<br>Rawalpindi International Hospital</div>
+            <div class="rx-doc-qual">MBBS, FCPS (Gastroenterology), MRCPS (Glasgow), MACG (USA), SCE Gastroenterology (UK), CHPE</div>
+            <div class="rx-doc-title">Specialist in Stomach &amp; Liver (Gastroenterology &amp; Hepatology)</div>
           </div>
           <div class="rx-hdr-center">
             <img src="../assets/logo-icon.jpeg" alt="">
-            
           </div>
           <div class="rx-hdr-right">
-            <div class="rx-ur-name">ڈاکٹر سجاد حسین چاندیو</div>
-            <div class="rx-ur-line">ایم بی بی ایس، ایف سی پی ایس (معدہ و آنتوں)</div>
-            <div class="rx-ur-line">ماہر امراضِ معدہ و آنتوں</div>
-            <div class="rx-ur-line" style="margin-top:2px; font-size:10px;">الصفاح ہسپتال، راولپنڈی<br>محمد میڈیکل کمپلیکس، دولتالہ<br>جناح ہسپتال، گوجر خان<br>راولپنڈی انٹرنیشنل ہسپتال</div>
+            <div class="rx-ur-name">ڈاکٹر سجاد حسین چانڈیو</div>
+            <div class="rx-ur-line">ایم بی بی ایس، ایف سی پی ایس (معدہ و جگر)، ایم آر سی پی ایس (گلاسگو)، ایم اے سی جی (امریکہ)، ایس سی ای معدہ و جگر (برطانیہ)، سی ایچ پی ای</div>
+            <div class="rx-ur-line">ماہر امراضِ معدہ و جگر</div>
           </div>
         </div>
 
@@ -555,7 +553,7 @@
 
         <!-- FOOTER -->
         <div class="rx-slip-footer">
-          <div>Chandio Gastro &amp; Endoscopy Center &middot; info@chandiogastro.com</div>
+          <div>Chandio Gastro &amp; Endoscopy Center &middot; s3786620@gmail.com &middot; Mobile: 0333 8184422</div>
           <div class="rx-court">NOT VALID FOR COURT</div>
           <div>Page 1 of 1</div>
         </div>

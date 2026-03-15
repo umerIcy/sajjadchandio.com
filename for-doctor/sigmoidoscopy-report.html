@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Endoscopy Report – Chandio Gastro &amp; Endoscopy Center</title>
+  <title>Create Sigmoidoscopy Report – Chandio Gastro &amp; Endoscopy Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -220,7 +220,7 @@
   <!-- ==================== FORM INPUT ==================== -->
   <div class="er-page-wrap">
     <div class="er-form-section">
-      <h1>Create Endoscopy Report</h1>
+      <h1>Create Sigmoidoscopy Report</h1>
       <p class="er-subtitle">Fill in the procedure details below, upload any endoscopy images, then click <strong>Preview Report</strong>.</p>
 
       <form id="erForm" autocomplete="off">
@@ -328,38 +328,8 @@
           <legend>Endoscopic Findings</legend>
           <div class="er-row">
             <div class="er-field full">
-              <label for="fEsophagus">Oesophagus</label>
-              <textarea id="fEsophagus" rows="3" placeholder="e.g. The oesophageal mucosa appears normal. The oesophagogastric and squamocolumnar junctions are located [X cm] from incisors, coincident with the hiatus."></textarea>
-            </div>
-          </div>
-          <div class="er-row">
-            <div class="er-field full">
-              <label for="fCardia">Stomach – Cardia</label>
-              <textarea id="fCardia" rows="2" placeholder="e.g. The mucosa of the cardia appears normal."></textarea>
-            </div>
-          </div>
-          <div class="er-row">
-            <div class="er-field full">
-              <label for="fCorpus">Stomach – Corpus/Fundus</label>
-              <textarea id="fCorpus" rows="2" placeholder="e.g. The mucosa of the corpus/fundus appears normal (biopsies)."></textarea>
-            </div>
-          </div>
-          <div class="er-row">
-            <div class="er-field full">
-              <label for="fAntrum">Stomach – Antrum (including incisura)</label>
-              <textarea id="fAntrum" rows="2" placeholder="e.g. The mucosa of the antrum appears normal (biopsies)."></textarea>
-            </div>
-          </div>
-          <div class="er-row">
-            <div class="er-field full">
-              <label for="fBulb">Duodenum – Bulb</label>
-              <textarea id="fBulb" rows="2" placeholder="e.g. The mucosa of the bulb appears normal. The villi appear normal."></textarea>
-            </div>
-          </div>
-          <div class="er-row">
-            <div class="er-field full">
-              <label for="fD2">Duodenum – Second Portion</label>
-              <textarea id="fD2" rows="2" placeholder="e.g. The mucosa of the second duodenal portion appears normal. The villi appear normal."></textarea>
+              <label for="fFindings">General Endoscopic Findings</label>
+              <textarea id="fFindings" rows="8" placeholder="e.g. Rectum and sigmoid colon were intubated. Mucosa appears normal. No polyps, masses or ulceration seen. Retroflexion in rectum performed. Describe all findings in detail."></textarea>
             </div>
           </div>
           <div class="er-row">
@@ -478,14 +448,14 @@
             </div>
           </div>
           <div class="er-report-header-right">
-            Upper GI Endoscopy<br>Report
+            Sigmoidoscopy<br>Report
           </div>
         </div>
 
         <!-- Body -->
         <div class="er-report-body">
 
-          <div class="er-report-title">UPPER GI ENDOSCOPY</div>
+          <div class="er-report-title">SIGMOIDOSCOPY</div>
 
           <!-- Preprocedure -->
           <div class="er-section-heading">Preprocedure information</div>
@@ -521,19 +491,7 @@
 
           <!-- Endoscopic Findings -->
           <div class="er-section-heading">Endoscopic findings</div>
-
-          <div class="er-finding-title">Oesophagus</div>
-          <div class="er-finding-sub" id="pEsophagus"></div>
-
-          <div class="er-finding-title">Stomach</div>
-          <div class="er-finding-sub"><u>Cardia</u>: <span id="pCardia"></span></div>
-          <div class="er-finding-sub"><u>Corpus/fundus</u>: <span id="pCorpus"></span></div>
-          <div class="er-finding-sub"><u>Antrum (including incisura)</u>: <span id="pAntrum"></span></div>
-
-          <div class="er-finding-title">Duodenum</div>
-          <div class="er-finding-sub"><u>Bulb</u>: <span id="pBulb"></span></div>
-          <div class="er-finding-sub"><u>Second portion</u>: <span id="pD2"></span></div>
-
+          <div class="er-finding-sub" id="pFindings" style="white-space:pre-wrap"></div>
           <div class="er-info-line" style="margin-top:8px"><strong>Use of virtual chromoendoscopy:</strong> <span id="pChromo"></span></div>
 
           <!-- Images -->
@@ -570,7 +528,7 @@
 
         <!-- Footer -->
         <div class="er-report-footer">
-          Chandio Gastro &amp; Endoscopy Center – Upper GI Endoscopy Report
+          Chandio Gastro &amp; Endoscopy Center – Sigmoidoscopy Report
         </div>
 
       </div>
@@ -707,12 +665,7 @@
       document.getElementById('pCleanliness').textContent = document.getElementById('fCleanliness').value || '—';
 
       /* Findings */
-      document.getElementById('pEsophagus').textContent = document.getElementById('fEsophagus').value || 'No findings documented.';
-      document.getElementById('pCardia').textContent = document.getElementById('fCardia').value || '—';
-      document.getElementById('pCorpus').textContent = document.getElementById('fCorpus').value || '—';
-      document.getElementById('pAntrum').textContent = document.getElementById('fAntrum').value || '—';
-      document.getElementById('pBulb').textContent = document.getElementById('fBulb').value || '—';
-      document.getElementById('pD2').textContent = document.getElementById('fD2').value || '—';
+      document.getElementById('pFindings').textContent = document.getElementById('fFindings').value || 'No findings documented.';
       document.getElementById('pChromo').textContent = document.getElementById('fChromo').value || '—';
 
       /* Images */

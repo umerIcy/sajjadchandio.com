@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctor Access – Chandio Gastro &amp; Endoscopy Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body { background:#eaeaea; }
+    .gate-wrap { max-width:400px; margin:48px auto; padding:0 16px; }
+    .gate-card { background:#fff; border:1px solid #d0d0d0; border-radius:6px; padding:28px 24px; }
+    .gate-title { font-family:'Playfair Display',Georgia,serif; color:#0e7c86; font-size:26px; margin:0 0 20px; text-align:center; }
+    .gate-field { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+    .gate-field label { font-size:12.5px; font-weight:600; color:#333; }
+    .gate-field input { width:100%; padding:11px 12px; border:1px solid #ccc; border-radius:4px; font-size:15px; font-family:'Open Sans',Arial,sans-serif; box-sizing:border-box; }
+    .gate-actions { display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; padding:10px 22px; border-radius:4px; border:none; cursor:pointer; font-family:'Open Sans',Arial,sans-serif; font-size:14px; }
+    .btn-primary { background:#0e7c86; color:#fff; }
+    .btn-primary:hover { background:#095a62; }
+    .btn-secondary { background:#fff; border:1px solid #ccc; color:#444; text-decoration:none; }
+    .btn-secondary:hover { background:#f5f5f5; }
+    .msg { margin-top:14px; font-size:13px; color:#c0392b; min-height:20px; text-align:center; }
+    .msg.ok { color:#0e7c86; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="logo-icon">
+        <div class="logo-text">
+          <span class="logo-name">Chandio Gastro &amp; Endoscopy Center</span>
+          <span class="logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../services/gastroscopy.html">Gastroscopy</a></li>
+              <li><a href="../services/colonoscopy.html">Colonoscopy</a></li>
+              <li><a href="../services/bowel-cancer-screening.html">Bowel Cancer Screening</a></li>
+              <li><a href="../services/open-access-endoscopy.html">Open access endoscopy</a></li>
+              <li><a href="../services/consultation-services.html">Consultation services</a></li>
+              <li class="has-submenu">
+                <a href="#">Advanced Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="../services/ercp.html">ERCP</a></li>
+                  <li><a href="../services/eus.html">EUS</a></li>
+                  <li><a href="../services/emr.html">EMR/Removal of Polyps</a></li>
+                </ul>
+              </li>
+              <li class="has-submenu">
+                <a href="#">Bariatric Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="../services/gastric-balloon.html">Gastric Balloon</a></li>
+                  <li><a href="../services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Obesity Management <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../services/gastric-balloon.html">Gastric Balloon</a></li>
+              <li><a href="../services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+            </ul>
+          </li>
+          <li><a href="../obesity-insights/index.html" class="nav-link">&ldquo;Obesity Insights&rdquo;</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">For Patients <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../for-patients/symptoms.html">Symptoms</a></li>
+              <li><a href="../for-patients/appointment.html">Appointment</a></li>
+              <li><a href="../for-patients/practice-locations.html">Practice Locations</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link active">For Doctor <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="dashboard.html">Doctor Dashboard (EHR)</a></li>
+              <li><a href="referral-letter.html">Create Referral Letter</a></li>
+              <li><a href="endoscopy-report.html">Create Endoscopy Report</a></li>
+              <li><a href="sigmoidoscopy-report.html">Create Sigmoidoscopy Report</a></li>
+              <li><a href="colonoscopy-report.html">Create Colonoscopy Report</a></li>
+              <li><a href="prescription.html">Create Prescription</a></li>
+            </ul>
+          </li>
+          <li class="nav-search">
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="gate-wrap">
+    <div class="gate-card">
+      <h1 class="gate-title">Doctor Access</h1>
+
+      <div class="gate-field">
+        <label for="pw">Password</label>
+        <input id="pw" type="password" autocomplete="current-password" />
+      </div>
+
+      <div class="gate-actions">
+        <button class="btn btn-primary" id="unlockBtn" type="button">Unlock</button>
+        <a class="btn btn-secondary" href="../index.html">Back to site</a>
+      </div>
+
+      <div class="msg" id="msg"></div>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+  <script src="doctor-password.js"></script>
+  <script>
+    (function () {
+      var STORAGE_KEY = 'chandio_doctor_gate_ok_v1';
+      var PLACEHOLDER = 'CHANGE_THIS_PASSWORD';
+
+      function getNextUrl() {
+        try {
+          var u = new URL(window.location.href);
+          return u.searchParams.get('next') || 'dashboard.html';
+        } catch (_) {
+          return 'dashboard.html';
+        }
+      }
+
+      function setMsg(text, ok) {
+        var el = document.getElementById('msg');
+        el.textContent = text || '';
+        el.className = 'msg' + (ok ? ' ok' : '');
+      }
+
+      document.getElementById('unlockBtn').addEventListener('click', function () {
+        setMsg('');
+        var pw = document.getElementById('pw').value;
+        var expected = typeof window.DOCTOR_ACCESS_PASSWORD === 'string' ? window.DOCTOR_ACCESS_PASSWORD : '';
+
+        if (!pw) {
+          setMsg('Enter password.');
+          return;
+        }
+        if (!expected || expected === PLACEHOLDER) {
+          setMsg('Password is not set. Edit for-doctor/doctor-password.js on the server.');
+          return;
+        }
+        if (pw !== expected) {
+          setMsg('Incorrect password.');
+          return;
+        }
+        try {
+          localStorage.setItem(STORAGE_KEY, '1');
+        } catch (e) {
+          setMsg('Could not save session. Allow storage for this site.');
+          return;
+        }
+        setMsg('Opening…', true);
+        window.location.href = getNextUrl();
+      });
+
+      document.getElementById('pw').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') document.getElementById('unlockBtn').click();
+      });
+    })();
+  </script>
+</body>
+</html>

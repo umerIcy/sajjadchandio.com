@@ -8,8 +8,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
+  <script src="doctor-gate.js"></script>
   <style>
-    /* ===== Endoscopy Report Page Styles ===== */
+    /* ===== Colonoscopy Report Page Styles ===== */
 
     .er-page-wrap { background:#eaeaea; padding:30px 0 60px; }
 
@@ -197,6 +198,7 @@
           <li class="has-dropdown">
             <a href="#" class="nav-link active">For Doctor <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
             <ul class="dropdown">
+              <li><a href="dashboard.html">Doctor Dashboard (EHR)</a></li>
               <li><a href="referral-letter.html">Create Referral Letter</a></li>
               <li><a href="endoscopy-report.html">Create Endoscopy Report</a></li>
               <li><a href="sigmoidoscopy-report.html">Create Sigmoidoscopy Report</a></li>
@@ -221,7 +223,7 @@
   <div class="er-page-wrap">
     <div class="er-form-section">
       <h1>Create Colonoscopy Report</h1>
-      <p class="er-subtitle">Fill in the procedure details below, upload any endoscopy images, then click <strong>Preview Report</strong>.</p>
+      <p class="er-subtitle">Fill in the procedure details below, upload any colonoscopy images, then click <strong>Preview Report</strong>.</p>
 
       <form id="erForm" autocomplete="off">
 
@@ -256,7 +258,7 @@
           <div class="er-row">
             <div class="er-field full">
               <label for="fIndication">Indication <span class="req">*</span></label>
-              <textarea id="fIndication" rows="2" required placeholder="e.g. Dyspepsia, upper abdominal pain, melaena"></textarea>
+              <textarea id="fIndication" rows="2" required placeholder="e.g. Screening, rectal bleeding, change in bowel habit, polyp surveillance"></textarea>
             </div>
           </div>
           <div class="er-row">
@@ -296,8 +298,8 @@
               <input type="text" id="fFastLiquids" placeholder="e.g. 4 hours">
             </div>
             <div class="er-field">
-              <label for="fPremed">Premedication</label>
-              <input type="text" id="fPremed" placeholder="e.g. Xylocaine spray">
+              <label for="fPremed">Premedication / prep</label>
+              <input type="text" id="fPremed" placeholder="e.g. Bowel prep (PEG), IV sedation as per protocol">
             </div>
           </div>
         </fieldset>
@@ -307,12 +309,12 @@
           <legend>Periprocedure Information</legend>
           <div class="er-row">
             <div class="er-field">
-              <label for="fDrugs">Drugs During Endoscopy</label>
+              <label for="fDrugs">Drugs during colonoscopy</label>
               <input type="text" id="fDrugs" placeholder="e.g. Midazolam 3mg, Fentanyl 50mcg IV">
             </div>
             <div class="er-field">
-              <label for="fEndoscope">Type of Endoscope</label>
-              <input type="text" id="fEndoscope" placeholder="e.g. Olympus GIF-HQ190">
+              <label for="fEndoscope">Type of colonoscope</label>
+              <input type="text" id="fEndoscope" placeholder="e.g. Olympus CF-HQ190L">
             </div>
           </div>
           <div class="er-row">
@@ -334,17 +336,17 @@
           </div>
           <div class="er-row">
             <div class="er-field full">
-              <label for="fChromo">Use of Virtual Chromoendoscopy</label>
-              <input type="text" id="fChromo" placeholder="e.g. NBI used, No chromoendoscopy">
+              <label for="fChromo">Adjunct imaging (NBI / chromoendoscopy)</label>
+              <input type="text" id="fChromo" placeholder="e.g. NBI for vascular pattern, or none">
             </div>
           </div>
         </fieldset>
 
-        <!-- Endoscopy Images -->
+        <!-- Colonoscopy images -->
         <fieldset class="er-fieldset">
-          <legend>Endoscopy Images</legend>
+          <legend>Colonoscopy images</legend>
           <div class="er-img-upload-area" id="imgUploadArea">
-            <p>Click here or drag &amp; drop endoscopy images<br><span style="font-size:11px;color:#aaa">(JPG, PNG – up to 10 images)</span></p>
+            <p>Click here or drag &amp; drop colonoscopy images<br><span style="font-size:11px;color:#aaa">(JPG, PNG – up to 10 images)</span></p>
             <input type="file" id="imgInput" accept="image/*" multiple>
           </div>
           <div class="er-img-thumbs" id="imgThumbs"></div>
@@ -356,7 +358,7 @@
           <div class="er-row">
             <div class="er-field full">
               <label for="fBiopsies">Biopsies</label>
-              <textarea id="fBiopsies" rows="2" placeholder="e.g. Gastric antrum x2, Gastric corpus x2 for H. pylori"></textarea>
+              <textarea id="fBiopsies" rows="2" placeholder="e.g. Rectal polyp x1 for histology, random right-colon biopsies"></textarea>
             </div>
           </div>
           <div class="er-row">
@@ -399,14 +401,14 @@
           <legend>Diagnosis &amp; Recommendations</legend>
           <div class="er-row">
             <div class="er-field full">
-              <label for="fDiagnosis">Endoscopic Diagnosis</label>
-              <textarea id="fDiagnosis" rows="3" placeholder="e.g. Normal upper GI endoscopy / Gastric ulcer / Oesophagitis LA Grade B"></textarea>
+              <label for="fDiagnosis">Colonoscopic diagnosis</label>
+              <textarea id="fDiagnosis" rows="3" placeholder="e.g. Normal colonoscopy to TI / Diverticulosis / Polyp(s) removed"></textarea>
             </div>
           </div>
           <div class="er-row">
             <div class="er-field full">
               <label for="fRecommendations">Recommendations &amp; Follow-up</label>
-              <textarea id="fRecommendations" rows="3" placeholder="e.g. Continue PPI therapy, repeat endoscopy in 8 weeks"></textarea>
+              <textarea id="fRecommendations" rows="3" placeholder="e.g. Repeat colonoscopy in 5–10 years; refer histology; high-fibre diet"></textarea>
             </div>
           </div>
         </fieldset>
@@ -416,6 +418,8 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             Preview Report
           </button>
+          <button type="button" class="er-btn er-btn-secondary" id="saveBtn">Save to History</button>
+          <a class="er-btn er-btn-secondary" href="dashboard.html" style="text-decoration:none;">Dashboard</a>
           <button type="reset" class="er-btn er-btn-secondary">Clear Form</button>
         </div>
 
@@ -448,7 +452,7 @@
             </div>
           </div>
           <div class="er-report-header-right">
-            Upper GI Endoscopy<br>Report
+            Colonoscopy<br>Report
           </div>
         </div>
 
@@ -485,21 +489,21 @@
 
           <!-- Periprocedure -->
           <div class="er-section-heading">Periprocedure information</div>
-          <div class="er-info-line"><strong>Drugs during endoscopy:</strong> <span id="pDrugs"></span></div>
-          <div class="er-info-line"><strong>Type of endoscope:</strong> <span id="pEndoscope"></span></div>
+          <div class="er-info-line"><strong>Drugs during colonoscopy:</strong> <span id="pDrugs"></span></div>
+          <div class="er-info-line"><strong>Type of colonoscope:</strong> <span id="pEndoscope"></span></div>
           <div class="er-info-line"><strong>Quality of cleanliness:</strong> <span id="pCleanliness"></span></div>
 
           <!-- Endoscopic Findings -->
           <div class="er-section-heading">Endoscopic findings</div>
           <div class="er-finding-sub" id="pFindings" style="white-space:pre-wrap"></div>
-          <div class="er-info-line" style="margin-top:8px"><strong>Use of virtual chromoendoscopy:</strong> <span id="pChromo"></span></div>
+          <div class="er-info-line" style="margin-top:8px"><strong>Adjunct imaging (NBI / chromoendoscopy):</strong> <span id="pChromo"></span></div>
 
           <!-- Images -->
           <div class="er-images-row" id="pImages"></div>
 
           <!-- Diagnosis -->
           <div id="pDiagBlock" style="display:none">
-            <div class="er-section-heading">Endoscopic diagnosis</div>
+            <div class="er-section-heading">Colonoscopic diagnosis</div>
             <div class="er-finding-sub" id="pDiagnosis" style="white-space:pre-wrap"></div>
           </div>
 
@@ -554,10 +558,16 @@
   </footer>
 
   <script src="../script.js"></script>
+  <script src="ehr-form.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="supabase-client.js"></script>
   <script>
   (function() {
+    var sb = window.chandioSupabase;
     var overlay = document.getElementById('previewOverlay');
     var uploadedImages = [];
+    var currentDocId = null;
 
     /* ---- Date Helpers ---- */
     function fmtDate(v) {
@@ -620,6 +630,87 @@
         });
       });
     }
+
+    function getQueryParam(name) {
+      try {
+        var u = new URL(window.location.href);
+        return u.searchParams.get(name);
+      } catch (_) { return null; }
+    }
+
+    function serializeReport() {
+      return window.EHR.serializeErForm(uploadedImages);
+    }
+
+    function applyReport(values) {
+      window.EHR.applyErForm(values, { uploadedImagesRef: uploadedImages });
+      renderThumbs();
+      var anti = document.querySelector('input[name="fAntiThrom"]:checked');
+      var det = document.getElementById('antiThromDetails');
+      if (anti && det) det.classList.toggle('visible', anti.value === 'yes');
+    }
+
+    async function requireSession() {
+      var session = await window.EHRAuth.ensureSupabaseSession(sb);
+      if (!session) {
+        var f = window.EHRAuth.getLastFailure && window.EHRAuth.getLastFailure();
+        if (f && f.message) alert(f.message);
+      }
+      return session;
+    }
+
+    async function loadDocIfNeeded() {
+      var docId = getQueryParam('doc');
+      if (!docId) return;
+      await requireSession();
+      var res = await sb.from('doctor_documents').select('*').eq('id', docId).maybeSingle();
+      if (res.error) { alert(res.error.message || 'Failed to load saved document.'); return; }
+      if (!res.data) { alert('Saved document not found.'); return; }
+      if (res.data.doc_type !== 'colonoscopy-report') { alert('This saved item is not a colonoscopy report.'); return; }
+      currentDocId = res.data.id;
+      applyReport(res.data.payload);
+    }
+
+    async function saveCurrent() {
+      var session = await requireSession();
+      if (!session) return;
+
+      var payload = serializeReport();
+      var patientName = (document.getElementById('fPatientName').value || '').trim();
+      var mrn = '';
+      var date = document.getElementById('fExamDate').value || '';
+      var title = patientName ? ('Colonoscopy Report - ' + patientName) : 'Colonoscopy Report';
+
+      var record = {
+        doc_type: 'colonoscopy-report',
+        title: title,
+        patient_name: patientName,
+        patient_mrn: mrn,
+        patient_date: date,
+        payload: payload
+      };
+
+      var res;
+      if (currentDocId) {
+        res = await sb.from('doctor_documents').update(record).eq('id', currentDocId).select('id').single();
+      } else {
+        record.created_by = session.user.id;
+        res = await sb.from('doctor_documents').insert(record).select('id').single();
+      }
+
+      if (res.error) { alert(res.error.message || 'Save failed.'); return; }
+      currentDocId = res.data.id;
+      alert('Saved.');
+      try {
+        var u = new URL(window.location.href);
+        u.searchParams.set('doc', currentDocId);
+        window.history.replaceState({}, '', u.toString());
+      } catch (_) {}
+    }
+
+    document.getElementById('saveBtn').addEventListener('click', function() {
+      saveCurrent();
+    });
 
     /* ---- Preview ---- */
     document.getElementById('previewBtn').addEventListener('click', function() {
@@ -716,6 +807,8 @@
       overlay.classList.remove('visible');
       document.body.style.overflow = '';
     }
+
+    loadDocIfNeeded();
   })();
   </script>
 </body>

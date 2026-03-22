@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
+  <script src="doctor-gate.js"></script>
   <style>
     /* ---- Referral Letter Template Styles ---- */
 
@@ -506,6 +507,7 @@
           <li class="has-dropdown">
             <a href="#" class="nav-link active">For Doctor <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
             <ul class="dropdown">
+              <li><a href="dashboard.html">Doctor Dashboard (EHR)</a></li>
               <li><a href="referral-letter.html">Create Referral Letter</a></li>
               <li><a href="endoscopy-report.html">Create Endoscopy Report</a></li>
               <li><a href="sigmoidoscopy-report.html">Create Sigmoidoscopy Report</a></li>
@@ -591,6 +593,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             Preview Letter
           </button>
+          <button type="button" class="rl-btn rl-btn-secondary" id="saveBtn">Save to History</button>
           <button type="reset" class="rl-btn rl-btn-secondary">Clear Form</button>
         </div>
 
@@ -720,13 +723,108 @@
   </footer>
 
   <script src="../script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="supabase-client.js"></script>
   <script>
     (function() {
+      var sb = window.chandioSupabase;
       var form = document.getElementById('rlForm');
       var overlay = document.getElementById('previewOverlay');
       var previewBtn = document.getElementById('previewBtn');
       var printBtn = document.getElementById('printBtn');
       var closeBtn = document.getElementById('closePreview');
+      var currentDocId = null;
+
+      function getQueryParam(name) {
+        try {
+          var u = new URL(window.location.href);
+          return u.searchParams.get(name);
+        } catch (_) { return null; }
+      }
+
+      function serializeReferral() {
+        return {
+          rlTitle: document.getElementById('rlTitle').value,
+          rlPatientName: document.getElementById('rlPatientName').value,
+          rlDOB: document.getElementById('rlDOB').value,
+          rlMobile: document.getElementById('rlMobile').value,
+          rlAddress: document.getElementById('rlAddress').value,
+          rlDearDr: document.getElementById('rlDearDr').value,
+          rlBody: document.getElementById('rlBody').value
+        };
+      }
+
+      function applyReferral(d) {
+        d = d || {};
+        if (d.rlTitle) document.getElementById('rlTitle').value = d.rlTitle;
+        document.getElementById('rlPatientName').value = d.rlPatientName || '';
+        document.getElementById('rlDOB').value = d.rlDOB || '';
+        document.getElementById('rlMobile').value = d.rlMobile || '';
+        document.getElementById('rlAddress').value = d.rlAddress || '';
+        document.getElementById('rlDearDr').value = d.rlDearDr || '';
+        document.getElementById('rlBody').value = d.rlBody || '';
+      }
+
+      async function requireSession() {
+        var session = await window.EHRAuth.ensureSupabaseSession(sb);
+        if (!session) {
+          var f = window.EHRAuth.getLastFailure && window.EHRAuth.getLastFailure();
+          if (f && f.message) alert(f.message);
+        }
+        return session;
+      }
+
+      async function loadDocIfNeeded() {
+        var docId = getQueryParam('doc');
+        if (!docId) return;
+        await requireSession();
+        var res = await sb.from('doctor_documents').select('*').eq('id', docId).maybeSingle();
+        if (res.error) { alert(res.error.message || 'Failed to load saved document.'); return; }
+        if (!res.data) { alert('Saved document not found.'); return; }
+        if (res.data.doc_type !== 'referral-letter') { alert('This saved item is not a referral letter.'); return; }
+        currentDocId = res.data.id;
+        applyReferral(res.data.payload);
+      }
+
+      async function saveCurrent() {
+        var session = await requireSession();
+        if (!session) return;
+        var payload = serializeReferral();
+        var patientName = (payload.rlPatientName || '').trim();
+        var date = payload.rlDOB || '';
+        var title = patientName ? ('Referral - ' + patientName) : 'Referral Letter';
+
+        var record = {
+          doc_type: 'referral-letter',
+          title: title,
+          patient_name: patientName,
+          patient_mrn: '',
+          patient_date: date,
+          payload: payload
+        };
+
+        var res;
+        if (currentDocId) {
+          res = await sb.from('doctor_documents').update(record).eq('id', currentDocId).select('id').single();
+        } else {
+          record.created_by = session.user.id;
+          res = await sb.from('doctor_documents').insert(record).select('id').single();
+        }
+
+        if (res.error) { alert(res.error.message || 'Save failed.'); return; }
+        currentDocId = res.data.id;
+        alert('Saved.');
+        try {
+          var u = new URL(window.location.href);
+          u.searchParams.set('doc', currentDocId);
+          window.history.replaceState({}, '', u.toString());
+        } catch (_) {}
+      }
+
+      document.getElementById('saveBtn').addEventListener('click', function() {
+        saveCurrent();
+      });
 
       function formatDate(dateStr) {
         if (!dateStr) return '';
@@ -791,6 +889,8 @@
           document.body.style.overflow = '';
         }
       });
+
+      loadDocIfNeeded();
     })();
   </script>
 </body>

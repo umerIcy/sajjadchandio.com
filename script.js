@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  if (slides.length > 1) {
+  if (slides.length > 1 && prevBtn && nextBtn) {
     prevBtn.addEventListener('click', function () {
       prevSlide();
       startAutoplay();
@@ -59,9 +59,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const mobileToggle = document.getElementById('mobileToggle');
   const mainNav = document.getElementById('mainNav');
 
-  mobileToggle.addEventListener('click', function () {
-    mainNav.classList.toggle('open');
-  });
+  if (mobileToggle && mainNav) {
+    mobileToggle.addEventListener('click', function () {
+      mainNav.classList.toggle('open');
+    });
+  }
 
   var dropdownParents = document.querySelectorAll('.has-dropdown');
   dropdownParents.forEach(function (item) {
@@ -126,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
      ======================================== */
 
   document.addEventListener('click', function (e) {
+    if (!mainNav) return;
     if (!e.target.closest('.site-header')) {
       mainNav.classList.remove('open');
       dropdownParents.forEach(function (item) {

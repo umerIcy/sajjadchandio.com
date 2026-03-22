@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctor Dashboard – Chandio Gastro &amp; Endoscopy Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <script src="doctor-gate.js"></script>
+  <style>
+    body { background:#eaeaea; }
+    .dash-wrap { max-width:1200px; margin:30px auto 60px; padding:0 16px; }
+    .dash-head { display:flex; gap:12px; align-items:flex-end; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; }
+    .dash-title { font-family:'Playfair Display',Georgia,serif; color:#0e7c86; font-size:28px; margin:0; }
+    .dash-sub { color:#666; margin:6px 0 0; font-size:14px; }
+    .dash-actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; padding:9px 12px; border-radius:4px; border:1px solid transparent; cursor:pointer; font-family:'Open Sans',Arial,sans-serif; font-size:13px; text-decoration:none; }
+    .btn-primary { background:#0e7c86; color:#fff; border-color:#0e7c86; }
+    .btn-primary:hover { background:#095a62; }
+    .btn-secondary { background:#fff; border-color:#ccc; color:#444; }
+    .btn-secondary:hover { background:#f5f5f5; }
+    .btn-danger { background:#fff; border-color:#c0392b; color:#c0392b; }
+    .btn-danger:hover { background:#fdeaea; }
+    .btn-sm { padding:6px 10px; font-size:12.5px; }
+
+    .dash-card { background:#fff; border:1px solid #d0d0d0; border-radius:6px; padding:16px; }
+    .filters { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center; }
+    .filters input, .filters select {
+      padding:9px 10px; border:1px solid #ccc; border-radius:4px; font-size:14px;
+      font-family:'Open Sans',Arial,sans-serif;
+    }
+    .table { width:100%; border-collapse:collapse; }
+    .table th, .table td { text-align:left; padding:10px 8px; border-bottom:1px solid #eee; font-size:13.5px; vertical-align:middle; }
+    .table th { font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:#666; }
+    .row-actions { display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+    .pill { display:inline-block; padding:4px 8px; border-radius:999px; background:#f2f7f7; color:#0e7c86; border:1px solid rgba(14,124,134,.22); font-size:11px; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .muted { color:#777; font-size:13px; }
+    .err { color:#c0392b; font-size:13px; margin-top:10px; min-height:18px; }
+    .top-note { margin:10px 0 14px; font-size:12.5px; color:#777; line-height:1.5; }
+    code { background:#f4f4f4; padding:2px 6px; border-radius:4px; }
+    .dash-toolbar { margin-bottom:12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../assets/logo-icon.jpeg" alt="" class="logo-icon">
+        <div class="logo-text">
+          <span class="logo-name">Chandio Gastro & Endoscopy Center</span>
+          <span class="logo-tagline">Specialists in Gut &amp; Metabolics</span>
+        </div>
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Services <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../services/gastroscopy.html">Gastroscopy</a></li>
+              <li><a href="../services/colonoscopy.html">Colonoscopy</a></li>
+              <li><a href="../services/bowel-cancer-screening.html">Bowel Cancer Screening</a></li>
+              <li><a href="../services/open-access-endoscopy.html">Open access endoscopy</a></li>
+              <li><a href="../services/consultation-services.html">Consultation services</a></li>
+              <li class="has-submenu">
+                <a href="#">Advanced Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="../services/ercp.html">ERCP</a></li>
+                  <li><a href="../services/eus.html">EUS</a></li>
+                  <li><a href="../services/emr.html">EMR/Removal of Polyps</a></li>
+                </ul>
+              </li>
+              <li class="has-submenu">
+                <a href="#">Bariatric Endoscopy <svg class="submenu-arrow" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1l5 4-5 4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+                <ul class="submenu">
+                  <li><a href="../services/gastric-balloon.html">Gastric Balloon</a></li>
+                  <li><a href="../services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">Obesity Management <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../services/gastric-balloon.html">Gastric Balloon</a></li>
+              <li><a href="../services/gastric-outlet-reduction.html">Gastric Outlet Reduction/TORe</a></li>
+            </ul>
+          </li>
+          <li><a href="../obesity-insights/index.html" class="nav-link">&ldquo;Obesity Insights&rdquo;</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link">For Patients <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="../for-patients/symptoms.html">Symptoms</a></li>
+              <li><a href="../for-patients/appointment.html">Appointment</a></li>
+              <li><a href="../for-patients/practice-locations.html">Practice Locations</a></li>
+            </ul>
+          </li>
+          <li class="has-dropdown">
+            <a href="#" class="nav-link active">For Doctor <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+            <ul class="dropdown">
+              <li><a href="dashboard.html">Doctor Dashboard (EHR)</a></li>
+              <li><a href="referral-letter.html">Create Referral Letter</a></li>
+              <li><a href="endoscopy-report.html">Create Endoscopy Report</a></li>
+              <li><a href="sigmoidoscopy-report.html">Create Sigmoidoscopy Report</a></li>
+              <li><a href="colonoscopy-report.html">Create Colonoscopy Report</a></li>
+              <li><a href="prescription.html">Create Prescription</a></li>
+            </ul>
+          </li>
+          <li class="nav-search">
+            <button class="search-btn" id="searchBtn" aria-label="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="dash-wrap">
+    <div class="dash-head">
+      <div>
+        <h1 class="dash-title">Doctor Dashboard</h1>
+      </div>
+      <div class="dash-actions">
+        <a class="btn btn-secondary" href="referral-letter.html">New referral</a>
+        <a class="btn btn-secondary" href="endoscopy-report.html">New endoscopy</a>
+        <a class="btn btn-secondary" href="sigmoidoscopy-report.html">New sigmoidoscopy</a>
+        <a class="btn btn-secondary" href="colonoscopy-report.html">New colonoscopy</a>
+        <a class="btn btn-secondary" href="prescription.html">New prescription</a>
+        <button class="btn btn-primary" id="logoutBtn" type="button">Sign out</button>
+      </div>
+    </div>
+
+    <div class="dash-card">
+      
+
+      <div class="dash-toolbar">
+        <span class="muted" id="sessionLabel"></span>
+      </div>
+
+      <div class="filters">
+        <select id="typeFilter">
+          <option value="">All types</option>
+          <option value="referral-letter">Referral letter</option>
+          <option value="prescription">Prescription</option>
+          <option value="endoscopy-report">Endoscopy report</option>
+          <option value="sigmoidoscopy-report">Sigmoidoscopy report</option>
+          <option value="colonoscopy-report">Colonoscopy report</option>
+        </select>
+        <input id="q" type="search" placeholder="Search patient name / MRN / title…" style="flex:1; min-width:220px;" />
+        <button class="btn btn-secondary" id="refreshBtn" type="button">Refresh</button>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Title</th>
+            <th>Patient</th>
+            <th>MRN</th>
+            <th>Date</th>
+            <th>Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="rows">
+          <tr><td colspan="7" class="muted">Loading…</td></tr>
+        </tbody>
+      </table>
+
+      <div class="err" id="err"></div>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="supabase-client.js"></script>
+  <script>
+    (function () {
+      var sb = window.chandioSupabase;
+      var rowsEl = document.getElementById('rows');
+      var errEl = document.getElementById('err');
+      var qEl = document.getElementById('q');
+      var typeEl = document.getElementById('typeFilter');
+
+      function setErr(msg) { errEl.textContent = msg || ''; }
+
+      function fmtDateISO(d) {
+        if (!d) return '—';
+        try { return new Date(d).toLocaleString(); } catch (_) { return String(d); }
+      }
+
+      function toEditHref(row) {
+        var id = encodeURIComponent(row.id);
+        var t = row.doc_type;
+        if (t === 'prescription') return 'prescription.html?doc=' + id;
+        if (t === 'endoscopy-report') return 'endoscopy-report.html?doc=' + id;
+        if (t === 'colonoscopy-report') return 'colonoscopy-report.html?doc=' + id;
+        if (t === 'sigmoidoscopy-report') return 'sigmoidoscopy-report.html?doc=' + id;
+        if (t === 'referral-letter') return 'referral-letter.html?doc=' + id;
+        return '#';
+      }
+
+      function typeLabel(t) {
+        var map = {
+          'prescription': 'Prescription',
+          'endoscopy-report': 'Endoscopy',
+          'colonoscopy-report': 'Colonoscopy',
+          'sigmoidoscopy-report': 'Sigmoidoscopy',
+          'referral-letter': 'Referral letter'
+        };
+        return map[t] || t;
+      }
+
+      function render(rows) {
+        if (!rows || !rows.length) {
+          rowsEl.innerHTML = '<tr><td colspan="7" class="muted">No saved items yet. Create a document and click &quot;Save to History&quot;.</td></tr>';
+          return;
+        }
+        rowsEl.innerHTML = rows.map(function (r) {
+          var patient = (r.patient_name || '—');
+          var mrn = (r.patient_mrn || '—');
+          var date = (r.patient_date || '—');
+          var title = (r.title || '—');
+          var href = toEditHref(r);
+          return (
+            '<tr data-id="' + escapeAttr(r.id) + '">' +
+              '<td><span class="pill" title="' + escapeAttr(r.doc_type) + '">' + escapeHtml(typeLabel(r.doc_type)) + '</span></td>' +
+              '<td>' + escapeHtml(title) + '</td>' +
+              '<td>' + escapeHtml(patient) + '</td>' +
+              '<td>' + escapeHtml(mrn) + '</td>' +
+              '<td>' + escapeHtml(date) + '</td>' +
+              '<td>' + escapeHtml(fmtDateISO(r.updated_at || r.created_at)) + '</td>' +
+              '<td><div class="row-actions">' +
+                (href !== '#' ? '<a class="btn btn-secondary btn-sm" href="' + href + '">Open / Edit</a>' : '') +
+                '<button type="button" class="btn btn-danger btn-sm" data-del="' + escapeAttr(r.id) + '">Delete</button>' +
+              '</div></td>' +
+            '</tr>'
+          );
+        }).join('');
+
+        rowsEl.querySelectorAll('[data-del]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var id = btn.getAttribute('data-del');
+            if (!id || !confirm('Delete this saved document permanently?')) return;
+            deleteDoc(id);
+          });
+        });
+      }
+
+      function escapeHtml(s) {
+        return String(s || '').replace(/[&<>"']/g, function (c) {
+          return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]);
+        });
+      }
+      function escapeAttr(s) {
+        return escapeHtml(s).replace(/"/g, '&quot;');
+      }
+
+      async function requireSession() {
+        var session = await window.EHRAuth.ensureSupabaseSession(sb);
+        if (!session) {
+          var f = window.EHRAuth.getLastFailure && window.EHRAuth.getLastFailure();
+          if (f && f.message) setErr(f.message);
+          else setErr('Could not sign in to Supabase. Check for-doctor/supabase-config.js.');
+          return null;
+        }
+        setErr('');
+        var em = session.user && session.user.email ? session.user.email : '';
+        var el = document.getElementById('sessionLabel');
+        if (el) el.textContent = em ? 'Signed in as ' + em : 'Signed in';
+        return session;
+      }
+
+      async function deleteDoc(id) {
+        setErr('');
+        var session = await requireSession();
+        if (!session) return;
+        var res = await sb.from('doctor_documents').delete().eq('id', id);
+        if (res.error) {
+          setErr(res.error.message || 'Delete failed.');
+          return;
+        }
+        load();
+      }
+
+      async function load() {
+        setErr('');
+        rowsEl.innerHTML = '<tr><td colspan="7" class="muted">Loading…</td></tr>';
+        var session = await requireSession();
+        if (!session) {
+          rowsEl.innerHTML = '<tr><td colspan="7" class="muted">Fix the issue in the red message above, then click Refresh.</td></tr>';
+          return;
+        }
+
+        var q = qEl.value.trim();
+        var docType = typeEl.value;
+
+        var query = sb
+          .from('doctor_documents')
+          .select('id, doc_type, title, patient_name, patient_mrn, patient_date, created_at, updated_at')
+          .order('updated_at', { ascending: false })
+          .limit(500);
+
+        if (docType) query = query.eq('doc_type', docType);
+        if (q) {
+          query = query.or(
+            'patient_name.ilike.%' + q + '%,' +
+            'patient_mrn.ilike.%' + q + '%,' +
+            'title.ilike.%' + q + '%'
+          );
+        }
+
+        var res = await query;
+        if (res.error) {
+          setErr(res.error.message || 'Failed to load.');
+          rowsEl.innerHTML = '<tr><td colspan="7" class="muted">—</td></tr>';
+          return;
+        }
+        render(res.data || []);
+      }
+
+      document.getElementById('refreshBtn').addEventListener('click', load);
+      qEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') load(); });
+      typeEl.addEventListener('change', load);
+
+      document.getElementById('logoutBtn').addEventListener('click', async function () {
+        await sb.auth.signOut();
+        window.location.href = 'login-local.html';
+      });
+
+      load();
+    })();
+  </script>
+</body>
+</html>
